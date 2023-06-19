@@ -1,4 +1,4 @@
-package com.Pruebas.Pruebas.Viejo;
+package com.Pruebas.Pruebas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
