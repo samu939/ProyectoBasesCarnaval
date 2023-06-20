@@ -13,13 +13,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Data
 @Entity
 @Table(name = "ssa_cliente")
+@SequenceGenerator(
+    name="ssa_id_cliente",
+    sequenceName = "ssa_id_cliente",
+    initialValue = 1, 
+    allocationSize = 1
+)
 public class Cliente {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_cliente")
     private int id;
     @Column(name="pnombre",length = 20,nullable = false)
     private String pnombre;

@@ -14,13 +14,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Data
 @Entity
 @Table(name = "SSA_tipo_entrada")
+@SequenceGenerator(
+    name="ssa_id_tipo_entrada",
+    sequenceName = "ssa_id_tipo_entrada",
+    initialValue = 1, 
+    allocationSize = 1
+)
 public class TipoEntrada {
     @Id
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_tipo_entrada")
+
     private int id;
     @Column(name="tipo",length = 2,columnDefinition = "varchar(2) not null constraint check_tipo check(tipo in ('GP','GF','AN','SL'))",nullable = false)
     private String tipo;

@@ -14,14 +14,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Data
 @Entity
 @Table(name = "SSA_lugar_evento")
+@SequenceGenerator(
+    name="ssa_id_lugar_evento",
+    sequenceName = "ssa_id_lugar_evento",
+    initialValue = 1, 
+    allocationSize = 1
+)
 public class LugarEvento {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_lugar_evento")
     private int id;
+
     @Column(name="nombre_lugar",length = 60,nullable = false)
     private String nombre;
     @Column(name="descripcion",length=100,nullable = false)

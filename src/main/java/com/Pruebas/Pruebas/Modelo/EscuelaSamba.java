@@ -18,13 +18,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Data
 @Entity
 @Table(name = "ssa_escuela_samba")
+@SequenceGenerator(
+    name="ssa_id_escuela_samba",
+    sequenceName = "ssa_id_escuela_samba",
+    initialValue = 1, 
+    allocationSize = 1
+)
 public class EscuelaSamba {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_escuela_samba")
     private int id;
     @Column(name="fecha_funda",nullable = false)
     private Date fecha_funda;
