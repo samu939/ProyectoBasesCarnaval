@@ -44,6 +44,8 @@ public class EscuelaSamba {
 
     @OneToMany(mappedBy = "id_escuela_samba")
     private List<HistoricoGrupo> historicoGrupos; 
+
+    
      
 
 }

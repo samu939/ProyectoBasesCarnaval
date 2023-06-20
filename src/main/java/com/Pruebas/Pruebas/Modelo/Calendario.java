@@ -20,6 +20,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
@@ -67,4 +68,10 @@ public class Calendario {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ano_carnaval")
     private CarnavalAnual carnavalAnual;
+
+
+    
+    
+    
+     
 }
