@@ -36,4 +36,6 @@ public class CarnavalAnual {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_reina", nullable = false)
     private Participante id_reina;
+    @OneToMany(mappedBy = "ano_carnaval")
+    private List<Calendario> Calendario;
 }
