@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.List;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
@@ -12,7 +13,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -32,20 +35,24 @@ public class Participante {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_participante")
     private int id;
     @Column(length = 20,nullable = false)
-    private String pNombre;
+    private String pnombre;
     @Column(length = 20,nullable = false)
-    private String pApellido;
+    private String papellido;
     @Column(length = 20,nullable = false)
-    private String sApellido;
+    private String sapellido;
     @Column(columnDefinition = "char not null constraint check_genero check(genero in('M','F'))",nullable = false) 
     private char genero;   
     @Column(unique = true,nullable = false)
-    private long docIdentidad;
+    private long docidentidad;
     @Column(length = 20)
-    private String sNombre;
-    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    private String snombre;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_escuela_samba", nullable = false)
     private EscuelaSamba id_escuela_samba;
-    
 
+    @OneToMany(mappedBy = "id_rey")
+    private List<CarnavalAnual> carnavalRey; 
+    @OneToMany(mappedBy = "id_reina")
+    private List<CarnavalAnual> carnavalReina;
 
 }
