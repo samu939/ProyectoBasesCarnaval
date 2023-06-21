@@ -48,7 +48,7 @@ public class Calendario {
     private CarnavalAnual ano_carnaval;
 
     @Column(nullable = false)
-    private Date fecha;
+    private LocalDate fecha;
     @Column(nullable = false)
     private Time horai;
     @Column(length = 60,nullable = false)

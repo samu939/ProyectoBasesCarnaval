@@ -82,7 +82,7 @@
 <body>
 
     <div class="main">
-        <h1 class="type">AGENDA PERSONAL</h1>
+        <h1 class="type">EVENTOS</h1>
         
     </div>
     <script>
@@ -91,25 +91,24 @@
         },3000);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
-        
-    </div>
+    <div class="alert alert-success my-2" th:text="${msgExitoAgregar}" th:if="${msgExitoAgregar ne null}"></div>
+    <div class="alert alert-danger my-2" th:text="${msgFracasoAgregar}" th:if="${msgFracasoAgregar ne null}"></div>
     <div style="display: grid; place-items: center;margin-top: 20px;">
-        <h2 class="subt" style="padding: 20px; padding-top: 0px;">Lista de Contactos</h2>
+        <h2 class="subt" style="padding: 20px; padding-top: 0px;">Lista de Eventos</h2>
     </div>
     
     <div style="float: left;margin-top: 5px; padding-top: 0px;">
-        <a style="margin: 20px; margin-top: 0px; margin-left: 28px; padding: 10PX; margin-right: 10px; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary" href="/nuevo">
-            Guardar contacto
+        <a style="margin: 20px; margin-top: 0px; margin-left: 28px; padding: 10PX; margin-right: 10px; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary" href="/elegirAnoEvento">
+            Crear Evento
+        </a>
+        <a style="margin: 20px; margin-top: 0px; margin-left: 15px; padding: 10PX; margin-right: 10px; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary" href="/eventos">
+            Volver
         </a>
         
-        <a style="margin: 20px;margin-top: 0px; margin-right: 250px; padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000; font-weight: bolder;" class="btn btn-primary" href="/eliminar">
-            Eliminar contacto
-        </a>
     </div>
     <div style="float: right;">
         
-        <form style="width: 100%; padding-top: 0px; padding-right: 12px; padding-bottom: 0px;" class="row g-3" th:action="@{/busqueda}">
+        <form style="width: 100%; padding-top: 0px; padding-right: 12px; padding-bottom: 0px;" class="row g-3" th:action="@{/buscarEventos}">
             <div class="input-group">
                 <input class="form-control" type="text" name="query">
                 <button style="padding: 10px;background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">
@@ -139,13 +138,15 @@
                 <td th:text="${evento.fecha}"></td>
                 <td th:text="${evento.tipo}"></td>
                 <td th:text="${evento.pago}"></td>
-                <td th:text="${evento.ano_carnaval.ano}"></td>
+                <td><form th:action="@{verEvento/{id}(id=${evento.id})}">
+                    <input type="text" name="ano" th:value="${evento.ano_carnaval.ano}"  style="margin-right: 10px; background-color: transparent; border-color: transparent; padding: 0px;">
+                    <button  style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver</button>    
+                </form></td>
             </tr>
             </tbody>
         </table>
-
+        <h3 th:unless="${eventos.size}">No hay resultados</h3>
         <div>
-            
             
             
         </div>

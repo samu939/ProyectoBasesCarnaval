@@ -2,23 +2,24 @@ package com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class HistoricoGrupoPK implements Serializable{
-    private Date fechai;
+    private LocalDate fechai;
     private int id_escuela_samba;
     
     public HistoricoGrupoPK() {
     }
 
-    public HistoricoGrupoPK(Date fechai, int id_escuela_samba) {
+    public HistoricoGrupoPK(LocalDate fechai, int id_escuela_samba) {
         this.fechai = fechai;
         this.id_escuela_samba = id_escuela_samba;
     }
     
-    public Date getFechai() {
+    public LocalDate getFechai() {
         return fechai;
     }
-    public void setFechai(Date fechai) {
+    public void setFechai(LocalDate fechai) {
         this.fechai = fechai;
     }
     

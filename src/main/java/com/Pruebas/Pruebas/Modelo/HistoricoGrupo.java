@@ -31,14 +31,14 @@ import jakarta.persistence.Table;
 @IdClass(HistoricoGrupoPK.class)
 public class HistoricoGrupo {
     @Id
-    private Date fechai;
+    private LocalDate fechai;
     @Id
     private int id_escuela_samba;
 
     @Column(columnDefinition = "VarChar(15) not null constraint check_grupo check (grupo in('acceso','especial'))",nullable = false,length = 15) 
     private String grupo;
     @Column(nullable = false)
-    private Date fechaf;
+    private LocalDate fechaf;
 
     @MapsId("id_escuela_samba")
     @ManyToOne(fetch = FetchType.EAGER)

@@ -35,7 +35,7 @@ public class EscuelaSamba {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_escuela_samba")
     private int id;
     @Column(name="fecha_funda",nullable = false)
-    private Date fecha_funda;
+    private LocalDate fecha_funda;
     @Column(name="nombre",length = 50,nullable = false)
     private String nombre;
     @Column(name = "direccion",length = 100,nullable = false)

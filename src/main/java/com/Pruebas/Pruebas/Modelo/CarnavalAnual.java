@@ -3,9 +3,11 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.math.BigInteger;
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
@@ -25,7 +27,7 @@ import jakarta.persistence.Table;
 @Table(name = "ssa_carnaval_anual")
 public class CarnavalAnual {
     @Id
-    private Date ano;
+    private LocalDate ano;
     @Column(nullable = false)
     private Date fechai;
     @Column(nullable = false)

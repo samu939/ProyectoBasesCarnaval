@@ -50,7 +50,7 @@ public class TicketEvento {
     private String descripcion;
 
     @Column(nullable = false)
-    private Date fecha_emision;
+    private LocalDate fecha_emision;
     @Column(nullable = false)
     private Time hora_emision;
     @Column(precision = 5, scale = 2, nullable = false)
