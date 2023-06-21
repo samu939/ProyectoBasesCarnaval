@@ -1,4 +1,5 @@
 package com.Pruebas.Pruebas.Modelo;
+
 import lombok.Data;
 import lombok.Getter;
 
@@ -8,6 +9,8 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.PresentacionPK;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
@@ -31,35 +34,27 @@ import jakarta.persistence.Table;
 @Data
 @Entity
 @Table(name = "ssa_presentacion")
-
+@IdClass(PresentacionPK.class)
 public class Presentacion {
     @Id
-    private int id_calendario;
+    @ManyToOne(targetEntity = HistoricoGrupo.class, fetch = FetchType.EAGER)
+    @JoinColumns({ @JoinColumn(name = "id_escuela_samba", referencedColumnName = "id_escuela_samba"),
+            @JoinColumn(name = "fechai_historico_grupo", referencedColumnName = "fechai") })
+    private HistoricoGrupo historicoGrupo;
     @Id
-    private Date ano_carnaval;
-    @Id
-    private int id_escuela_samba;
-    @Id
-    private Date fechai_historico_grupo; 
+    @ManyToOne(targetEntity = Calendario.class, fetch = FetchType.EAGER)
+    @JoinColumns({ @JoinColumn(name = "id_calendario", referencedColumnName = "id"),
+            @JoinColumn(name = "ano_carnaval", referencedColumnName = "ano_carnaval") })
+    private Calendario calendario;
     @Column(nullable = false)
     private Time hora_inicio_escuela;
-    @Column(columnDefinition = "int not null constraint check_orden check (orden_desfile>0 and orden_desfile<13)",nullable = false)
+    @Column(columnDefinition = "int not null constraint check_orden check (orden_desfile>0 and orden_desfile<13)", nullable = false)
     private int orden_desfile;
-    @Column(columnDefinition = "int not null constraint check_resultado check(resultado<13 and resultado>0)",nullable = false)
+    @Column(columnDefinition = "int not null constraint check_resultado check(resultado<13 and resultado>0)", nullable = false)
     private int resultado;
     @Column(length = 100)
     private String tema_general;
     @Column(length = 1500)
     private String titulo_letra_cancion;
-    
 
-    @ManyToOne(targetEntity = HistoricoGrupo.class,fetch = FetchType.EAGER)
-    @JoinColumns({@JoinColumn(name="id_escuela_samba", referencedColumnName="id_escuela_samba"),
-                  @JoinColumn(name="fechai_historico_grupo", referencedColumnName="fechai")})
-    private HistoricoGrupo historicoGrupo;
-
-    @ManyToOne(targetEntity = Calendario.class,fetch = FetchType.EAGER)
-    @JoinColumns({@JoinColumn(name="id_calendario", referencedColumnName="id"),
-                  @JoinColumn(name="ano_carnaval", referencedColumnName="ano_carnaval")})
-    private Calendario calendario;
 }

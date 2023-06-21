@@ -31,7 +31,7 @@ public class LugarEvento {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_lugar_evento")
     private int id;
 
-    @Column(name="nombre_lugar",length = 60,nullable = false)
+    @Column(name="nombre",length = 60,nullable = false)
     private String nombre;
     @Column(name="descripcion",length=100,nullable = false)
     private String descripcion;

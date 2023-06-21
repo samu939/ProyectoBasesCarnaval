@@ -3,19 +3,17 @@ package com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.Pruebas.Pruebas.Modelo.CarnavalAnual;
+
 public class CalendarioPK implements Serializable {
-    private Date ano_carnaval;
+    private CarnavalAnual ano_carnaval;
     private int id;
-    public CalendarioPK(Date ano_carnaval, int id) {
-        this.ano_carnaval = ano_carnaval;
-        this.id = id;
-    }
     public CalendarioPK() {
     }
-    public Date getAno_carnaval() {
+    public CarnavalAnual getAno_carnaval() {
         return ano_carnaval;
     }
-    public void setAno_carnaval(Date ano_carnaval) {
+    public void setAno_carnaval(CarnavalAnual ano_carnaval) {
         this.ano_carnaval = ano_carnaval;
     }
     public int getId() {
@@ -50,4 +48,5 @@ public class CalendarioPK implements Serializable {
             return false;
         return true;
     }
+    
 }

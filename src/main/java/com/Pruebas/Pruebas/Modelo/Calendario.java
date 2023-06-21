@@ -43,7 +43,10 @@ public class Calendario {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_calendario")
     private int id;
     @Id
-    private Date ano_carnaval;
+    @ManyToOne(targetEntity = CarnavalAnual.class,fetch = FetchType.EAGER)
+    @JoinColumn(name = "ano_carnaval",referencedColumnName = "ano")
+    private CarnavalAnual ano_carnaval;
+
     @Column(nullable = false)
     private Date fecha;
     @Column(nullable = false)
@@ -60,14 +63,12 @@ public class Calendario {
     private String descripcion;
     @Column(precision = 5, scale = 2)
     private BigDecimal costo;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_lugar_evento")
     private LugarEvento id_lugar_evento;
 
-    @MapsId("ano_carnaval")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ano_carnaval")
-    private CarnavalAnual carnavalAnual;
+    
 
 
     

@@ -21,7 +21,7 @@ public class ContactoController {
     @Autowired
     private ContactoRepository contactoRepository;
 
-    @GetMapping("/")
+    //@GetMapping("/")
     public String index(Model model) {
         List<Contacto> contactos= contactoRepository.OrderById();
         model.addAttribute("contactos", contactos);

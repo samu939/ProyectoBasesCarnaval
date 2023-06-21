@@ -9,6 +9,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.RolPresentacionPK;
+
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,29 +33,22 @@ import jakarta.persistence.Table;
 @Data
 @Entity
 @Table(name = "ssa_rol_presentacion")
+@IdClass(RolPresentacionPK.class)
 public class RolPresentacion {
     @Id
-    private int id_calendario;
-    @Id
-    private Date ano_carnaval;
-    @Id
-    private int id_escuela_samba;
-    @Id
-    private Date fechai_historico_grupo; 
-    @Id
-    private int id_participante;
-    @Column(columnDefinition = "Varchar(20) not null constraint check_rol check (rol in('porta-bandeira','carnavalesco','reina percusionista','maestre-sala'))",nullable = false, length = 20)
-    private String rol;
-
     @ManyToOne(targetEntity = Presentacion.class,fetch = FetchType.EAGER)
     @JoinColumns({@JoinColumn(name="id_escuela_samba", referencedColumnName="id_escuela_samba"),
-                  @JoinColumn(name="fechai_historico_grupo", referencedColumnName="fechai_historico_grupo"),
+                  @JoinColumn(name="fecha_inicio_historico_grupo", referencedColumnName="fechai_historico_grupo"),
                   @JoinColumn(name="id_calendario", referencedColumnName="id_calendario"),
                   @JoinColumn(name="ano_carnaval", referencedColumnName="ano_carnaval")})
     private Presentacion presentacion;
-
+    @Id
     @ManyToOne(targetEntity = Participante.class,fetch = FetchType.EAGER)
     @JoinColumns({@JoinColumn(name="id_participante", referencedColumnName="id")})
     private Participante participante;
+    @Column(columnDefinition = "Varchar(20) not null constraint check_rol check (rol in('porta-bandeira','carnavalesco','reina percusionista','maestre-sala'))",nullable = false, length = 20)
+    private String rol;
+
+    
 
 }

@@ -91,22 +91,7 @@
         },3000);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <div class="alert alert-success my-2" th:text="${msgExitoAgregar}" th:if="${msgExitoAgregar ne null}">
-        
-    </div>
-    <div class="alert alert-danger my-2" th:text="${msgFracasoAgregar}" th:if="${msgFracasoAgregar ne null}">
-        
-    </div>
-    <div class="alert alert-success my-2" th:text="${msgExitoDelete}" th:if="${msgExitoDelete ne null}">
-        
-    </div>
-    <div class="alert alert-danger my-2" th:text="${msgFracasoDelete}" th:if="${msgFracasoDelete ne null}">
-        
-    </div>
-    <div class="alert alert-success my-2" th:text="${msgExitoModificar}" th:if="${msgExitoModificar ne null}">
-        
-    </div>
-    <div class="alert alert-danger my-2" th:text="${msgFracasoModificar}" th:if="${msgFracasoModificar ne null}">
+    
         
     </div>
     <div style="display: grid; place-items: center;margin-top: 20px;">
@@ -141,20 +126,20 @@
         <table class="table table-striped table-hover pad">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
                     <th scope="col">NOMBRE</th>
-                    <th scope="col">FECHA NACIMIENTO</th>
-                    <th scope="col">FECHA REGISTRO</th>
-                    <th></th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">TIPO</th>
+                    <th scope="col">PAGO</th>
+                    <th scope="col">AÑO CARNAVAL</th>
                 </tr>
             </thead>
             <tbody>
-            <tr th:each="contacto : ${contactos}">
-                <td scope="row" th:text="${contacto.id}"></td>
-                <td th:text="${contacto.nombre}"></td>
-                <td th:text="${contacto.fechaNacimiento}"></td>
-                <td th:text="${contacto.fechaRegistro}"></td>
-                <td><a th:href="@{modificar/{id}(id=${contacto.id})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Modificar</a></td>
+            <tr th:each="evento : ${eventos}">
+                <td scope="row" th:text="${evento.nombre}"></td>
+                <td th:text="${evento.fecha}"></td>
+                <td th:text="${evento.tipo}"></td>
+                <td th:text="${evento.pago}"></td>
+                <td th:text="${evento.ano_carnaval.ano}"></td>
             </tr>
             </tbody>
         </table>
