@@ -21,24 +21,18 @@ import com.Pruebas.Pruebas.Modelo.CarnavalAnual;
 import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.CalendarioPK;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import com.Pruebas.Pruebas.Repositorios.CarnavalAnualRepository;
-import com.Pruebas.Pruebas.Viejo.Contacto;
 
 import org.springframework.ui.Model;
 
 @Controller
-public class MantenimientoCarnavalController {
+public class MantenimientoEventosController {
     
     @Autowired
     private CalendarioRepostory calendarioRepository;
     @Autowired
     private CarnavalAnualRepository carnavalAnualRepository;
 
-    @GetMapping("/mantenimientoCarnaval")
-    public String inicio() {
-        
-        return "mantenimientoCarnaval";
-    }
-
+    
     @GetMapping("/eventos")
     public String eventos(Model model) {
         List<Calendario> eventos=  calendarioRepository.OrderByFecha();

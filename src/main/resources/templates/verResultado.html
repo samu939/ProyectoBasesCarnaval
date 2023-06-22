@@ -28,7 +28,7 @@
             -webkit-background-clip: text;
             color: transparent;
             padding: 10px;
-            width: 29ch;
+            width: 9.5ch;
             animation: typing 2s steps(50),blink .5s step-end infinite;
             white-space: nowrap;
             overflow: hidden;
@@ -79,33 +79,95 @@
     
 
 </head>
-<body>
+<body class="container">
 
-    <div class="main">
-        <h1 class="type">MANTENIMIENTO CARNAVAL</h1>
-        
-    </div>
-    <script>
-        setTimeout(function(){
-        $('.alert').fadeOut('slow');
-        },3000);
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
-    <div style="display: grid; place-items: center;margin-top: 100px;">
-        <a href="/eventos" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;margin-bottom: 2ch;" class="btn btn-primary">Mantenimiento Eventos</a>
-        <a href="/resultadosCarnavales" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;" class="btn btn-primary">Mantenimiento Resultado Carnaval</a>
-    </div>
-    
-    <div style="margin: 50px;">
-            
-        <a style="padding: 10PX; margin-right: 10px; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: large;" class="btn btn-primary" href="/">
+    <form class="row g-3"  novalidate>
+        <div class="input-group" style="margin-top: 5ch;">
+            <span class="input-group-text">Año Carnaval</span>
+            <input  class="form-control" id="ano" disabled type="text" th:value="${carnaval.ano}">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Rey Carnaval</span>
+            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_rey.pnombre}+${carnaval.id_rey.papellido}" disabled>
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text">Reina Carnaval</span>
+            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_reina.pnombre}+${carnaval.id_reina.papellido}" disabled>
+        </div>
+    </form>    
+ 
+        <a style="margin: 20px; margin-top: 20px; margin-left: 15px; padding: 10PX; margin-right: 10px; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: larger;" class="btn btn-primary" href="/elegirAnoResultadoVer">
             Volver
         </a>
+    
+        <div style="display: grid; place-items: center;margin-top: 5px;">
+            <h2 class="subt" style="padding: 0px; padding-top: 0px;">Resultados del Grupo Especial</h2>
+        </div>
+    <div class="table">
+        
+        <table class="table table-striped table-hover pad" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th scope="col">NOMBRE ESCUELA</th>
+                    <th scope="col">POSICION</th>
+                    <th scope="col">TEMA GENERAL</th>
+                    <th scope="col">ORDEN DESFILE</th>
+                    <th scope="col">GRUPO</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="presentacionEspecial : ${presentacionesEspecial}">
+                <td scope="row" th:text="${presentacionEspecial.historicoGrupo.escuela_samba.nombre}"></td>
+                <td th:text="${presentacionEspecial.resultado}"></td>
+                <td th:text="${presentacionEspecial.tema_general}"></td>
+                <td th:text="${presentacionEspecial.orden_desfile}"></td>
+                <td th:text="${presentacionEspecial.historicoGrupo.grupo}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 th:unless="${presentacionesEspecial.size}">No hay presentaciones del grupo Especial</h3>
+        <div>
+            
+            
+            
+        </div>
+    </div>
+
+    <div style="display: grid; place-items: center;margin-top: 5px;">
+        <h2 class="subt" style="padding: 0px; padding-top: 0px;">Resultados del Grupo Especial</h2>
+    </div>
+<div class="table">
+    
+    <table class="table table-striped table-hover pad" style="text-align:center;">
+        <thead>
+            <tr>
+                <th scope="col">NOMBRE ESCUELA</th>
+                <th scope="col">POSICION</th>
+                <th scope="col">TEMA GENERAL</th>
+                <th scope="col">ORDEN DESFILE</th>
+                <th scope="col">GRUPO</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="presentacionAcceso : ${presentacionesAcceso}">
+            <td scope="row" th:text="${presentacionAcceso.historicoGrupo.escuela_samba.nombre}"></td>
+            <td th:text="${presentacionAcceso.resultado}"></td>
+            <td th:text="${presentacionAcceso.tema_general}"></td>
+            <td th:text="${presentacionAcceso.orden_desfile}"></td>
+            <td th:text="${presentacionAcceso.historicoGrupo.grupo}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3 th:unless="${presentacionesAcceso.size}">No hay presentaciones del grupo Acceso</h3>
+    <div>
+        
+        
         
     </div>
-    
-    
+</div>
     
 </body>
 </html>

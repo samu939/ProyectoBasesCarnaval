@@ -19,7 +19,6 @@ import com.Pruebas.Pruebas.Modelo.Calendario;
 import com.Pruebas.Pruebas.Modelo.CarnavalAnual;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import com.Pruebas.Pruebas.Repositorios.CarnavalAnualRepository;
-import com.Pruebas.Pruebas.Viejo.Contacto;
 
 import org.springframework.ui.Model;
 
@@ -30,5 +29,12 @@ public class InicioController {
     public String inicio(){
         return "inicio";
     }
+
+    @GetMapping("/mantenimientoCarnaval")
+    public String mantenimientoCarnaval() {
+        
+        return "mantenimientoCarnaval";
+    }
+
 
 }

@@ -73,7 +73,8 @@
                 
                 if (nombre==""){
                     alert('El nombre no puede estar vacio');
-                  conf=1;
+                    
+                    conf=1;
                 }
                 if (fecha.substr(0,4)!=fechaCarnaval.substr(0,4) && conf==0) {
                   alert('La fecha del evento tiene que ser el mismo año del carnaval');
@@ -111,8 +112,13 @@
                 }
 
                 
-                if(conf==0)
-                    document.getElementById("crearEvento").submit();
+                if(conf==0){
+                    var resultado = confirm("Seguro que Quiere Crear el evento: "+nombre+"?");  
+                    if(resultado){
+                        document.getElementById("crearEvento").submit();
+                    }
+                
+                }
                   
               }
               </script>
