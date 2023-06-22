@@ -48,10 +48,16 @@
             <span class="input-group-text">Pago</span>
             <select class="form-control" id="pago" th:field="*{pago}">
                 <option value="Si">Si</option>
-                <option value="No">No</option>
+                <option value="No" selected>No</option>
             </select>
         </div>
-
+        <div class="input-group">
+            <span class="input-group-text">Lugar del Evento</span>
+            <select class="form-control" id="lugar" th:field="*{id_lugar_evento}">
+                <option th:each="lugar: ${lugares}" th:value="${lugar.id}" th:text="${lugar.nombre}"></option>
+                
+            </select>
+        </div>
         <div class="input-group">
             <span class="input-group-text">Descripcion</span>
             <input class="form-control" id="descripcion" type="text" th:field="*{descripcion}" maxlength="300">
@@ -70,7 +76,8 @@
                 var nombre=document.getElementById('nombre').value;
                 var fecha = document.getElementById('fecha').value;
                 var fechaCarnaval = document.getElementById('ano').value;
-                
+                var lugar=document.getElementById("lugar").value;
+                var tipo=document.getElementById("tipo").value;
                 if (nombre==""){
                     alert('El nombre no puede estar vacio');
                     
@@ -88,6 +95,11 @@
                         alert('la hora tiene que tener el formato HH:MM:SS');
                         conf=1;
                     }
+                }
+                
+                if(tipo=="desfile" && lugar != 1 && conf==0){
+                    alert('Los desfiles solo pueden ser en el sambodromo');
+                    conf=1;
                 }
 
                 var pago= document.getElementById('pago').value;

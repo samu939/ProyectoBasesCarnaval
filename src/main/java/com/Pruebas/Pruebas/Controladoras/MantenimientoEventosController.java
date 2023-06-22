@@ -21,6 +21,7 @@ import com.Pruebas.Pruebas.Modelo.CarnavalAnual;
 import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.CalendarioPK;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import com.Pruebas.Pruebas.Repositorios.CarnavalAnualRepository;
+import com.Pruebas.Pruebas.Repositorios.LugarEventoRepository;
 
 import org.springframework.ui.Model;
 
@@ -31,7 +32,8 @@ public class MantenimientoEventosController {
     private CalendarioRepostory calendarioRepository;
     @Autowired
     private CarnavalAnualRepository carnavalAnualRepository;
-
+    @Autowired
+    private LugarEventoRepository lugarEventoRepository;
     
     @GetMapping("/eventos")
     public String eventos(Model model) {
@@ -86,7 +88,7 @@ public class MantenimientoEventosController {
     public String CrearEvento(Model model,@PathVariable("ano")LocalDate ano){
 
         model.addAttribute("calendario", new Calendario());
-        
+        model.addAttribute("lugares", lugarEventoRepository.findAll());
         model.addAttribute("ano", ano);
         
         return "crearEvento";

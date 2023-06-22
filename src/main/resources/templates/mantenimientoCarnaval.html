@@ -91,10 +91,13 @@
         },3000);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
+    <div class="alert alert-success my-2" th:text="${successCrearAno}" th:if="${successCrearAno ne null}"></div>
+    <div class="alert alert-danger my-2" th:text="${errorCrearAno}" th:if="${errorCrearAno ne null}"></div>
+
     <div style="display: grid; place-items: center;margin-top: 100px;">
         <a href="/eventos" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;margin-bottom: 2ch;" class="btn btn-primary">Mantenimiento Eventos</a>
-        <a href="/resultadosCarnavales" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;" class="btn btn-primary">Mantenimiento Resultado Carnaval</a>
+        <a href="/resultadosCarnavales" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;margin-bottom: 2ch;" class="btn btn-primary">Mantenimiento Resultado Carnaval</a>
+        <a href="/crearAnoCarnaval" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;" class="btn btn-primary">Agregar Año de Carnaval</a>
     </div>
     
     <div style="margin: 50px;">

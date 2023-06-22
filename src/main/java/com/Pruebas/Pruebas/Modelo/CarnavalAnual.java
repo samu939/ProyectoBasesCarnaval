@@ -29,9 +29,9 @@ public class CarnavalAnual {
     @Id
     private LocalDate ano;
     @Column(nullable = false)
-    private Date fechai;
+    private LocalDate fechai;
     @Column(nullable = false)
-    private Date fechaf;
+    private LocalDate fechaf;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_rey", nullable = false)
     private Participante id_rey;
