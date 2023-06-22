@@ -88,14 +88,16 @@
         </div>
         <div class="input-group">
             <span class="input-group-text">Rey Carnaval</span>
-            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_rey.pnombre}+${carnaval.id_rey.papellido}" disabled>
+            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_rey.pnombre}+' '+${carnaval.id_rey.papellido}" disabled>
         </div>
 
         <div class="input-group">
             <span class="input-group-text">Reina Carnaval</span>
-            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_reina.pnombre}+${carnaval.id_reina.papellido}" disabled>
+            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_reina.pnombre}+' '+${carnaval.id_reina.papellido}" disabled>
         </div>
     </form>    
+
+
  
         <a style="margin: 20px; margin-top: 20px; margin-left: 15px; padding: 10PX; margin-right: 10px; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: larger;" class="btn btn-primary" href="/elegirAnoResultadoVer">
             Volver
@@ -136,7 +138,7 @@
     </div>
 
     <div style="display: grid; place-items: center;margin-top: 5px;">
-        <h2 class="subt" style="padding: 0px; padding-top: 0px;">Resultados del Grupo Especial</h2>
+        <h2 class="subt" style="padding: 0px; padding-top: 0px;">Resultados del Grupo Acceso</h2>
     </div>
 <div class="table">
     
