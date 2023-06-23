@@ -1,43 +1,50 @@
 package com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas;
 
-import com.Pruebas.Pruebas.Modelo.Cliente;
-import com.Pruebas.Pruebas.Modelo.Empresa;
 
 
 public class ReservacionPK {
 
-    private Empresa empresa;
-    private Cliente cliente;
-    private int id;
+    private int id_empresa;
+    private int id_cliente;
+    private int numero;
 
     public ReservacionPK(){
 
     }
 
-    public ReservacionPK(int id, int id_empresa, int id_cliente){
-        this.id=id;
+    public ReservacionPK(int num, int id_empresa, int id_cliente){
+        this.numero=num;
+        this.id_cliente=id_cliente;
+        this.id_empresa=id_empresa;
 
+    }
 
+    public int getEmpresa(){
+        return id_empresa;
     }
-    public Empresa getEmpresa(){
-        return empresa;
+    public void setEmpresa(int empresa){
+        this.id_empresa=empresa;
     }
-    public void setEmpresa(Empresa empresa){
-        this.empresa=empresa;
+    public int getCliente(){
+        return id_cliente;
     }
-    public Cliente getCliente(){
-        return cliente;
+    public void setCliente(int cliente){
+        this.id_cliente=cliente;
     }
-    public void setCliente(Cliente cliente){
-        this.cliente=cliente;
+    public int getNumero(){
+        return numero;
+    }
+    public void setNumero(int num){
+        this.numero=num;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((empresa == null) ? 0 : empresa.hashCode());
-        result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
+        result = prime * result + id_cliente;
+        result = prime * result + id_empresa;
+        result = prime * result + id_empresa;
         return result;
     }
     @Override
@@ -52,18 +59,13 @@ public class ReservacionPK {
             return false;
         }
         ReservacionPK other =(ReservacionPK) obj;
-        if(empresa==null){
-            if(other.empresa != null){
-                return false;
-            }
-        }else if(!empresa.equals(other.empresa)){
+        if(id_empresa!=other.id_empresa){
             return false;
         }
-        if (cliente==null){
-            if(other.cliente!=null){
-                return false;
-            }
-        }else if(!cliente.equals(other.cliente)){
+        if (id_cliente!=other.id_cliente){
+            return false;
+        }
+        if (numero!=other.numero){
             return false;
         }
         return true;
