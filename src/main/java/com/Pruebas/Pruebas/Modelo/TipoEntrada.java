@@ -29,7 +29,6 @@ import jakarta.persistence.Table;
 public class TipoEntrada {
     @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_tipo_entrada")
-
     private int id;
     @Column(name="tipo",length = 2,columnDefinition = "varchar(2) not null constraint check_tipo check(tipo in ('GP','GF','AN','SL'))",nullable = false)
     private String tipo;
