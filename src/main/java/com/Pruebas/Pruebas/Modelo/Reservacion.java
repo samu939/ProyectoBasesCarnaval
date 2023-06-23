@@ -1,6 +1,7 @@
 package com.Pruebas.Pruebas.Modelo;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.ReservacionPK;
 
@@ -42,9 +43,9 @@ public class Reservacion {
     private Cliente id_cliente;
     @Column(nullable = false)
     private Date fecha_hora_emision;
-    @Column(name="total a pagar")
+    @Column(name="total")
     private double total;
-    @Column(name="fecha cancelado")
-    private Date fechac;
+    @Column(name="fechac")
+    private LocalDate fechac;
 
 }
