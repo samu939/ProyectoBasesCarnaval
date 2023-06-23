@@ -12,12 +12,13 @@ import jakarta.transaction.Transactional;
 public class HistoricoGrupoInsertRepository {
     @PersistenceContext
     private EntityManager entityManager;
+
     @Transactional
-    public void insertHistoricoNuevo(HistoricoGrupo historicoNuevo, String grupo){
+    public void insertHistoricoNuevo(HistoricoGrupo historicoNuevo, String grupo) {
         entityManager.createNativeQuery("INSERT INTO ssa_hist_grupo(fechai, id_escuela_samba, fechaf, grupo)VALUES(cast(? as date) + cast('1 day' as interval), ?, null, ?)")
-        .setParameter(1, historicoNuevo.getFechaf())
-        .setParameter(2, historicoNuevo.getId_escuela_samba())
-        .setParameter(3, grupo)
-        .executeUpdate();
+                .setParameter(1, historicoNuevo.getFechaf())
+                .setParameter(2, historicoNuevo.getId_escuela_samba())
+                .setParameter(3, grupo)
+                .executeUpdate();
     }
 }

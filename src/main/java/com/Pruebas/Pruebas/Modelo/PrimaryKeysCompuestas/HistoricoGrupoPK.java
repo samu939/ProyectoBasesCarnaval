@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class HistoricoGrupoPK implements Serializable{
+public class HistoricoGrupoPK implements Serializable {
     private LocalDate fechai;
     private int id_escuela_samba;
-    
+
     public HistoricoGrupoPK() {
     }
 
@@ -15,17 +15,19 @@ public class HistoricoGrupoPK implements Serializable{
         this.fechai = fechai;
         this.id_escuela_samba = id_escuela_samba;
     }
-    
+
     public LocalDate getFechai() {
         return fechai;
     }
+
     public void setFechai(LocalDate fechai) {
         this.fechai = fechai;
     }
-    
+
     public int getId_escuela_samba() {
         return id_escuela_samba;
     }
+
     public void setId_escuela_samba(int id_escuela_samba) {
         this.id_escuela_samba = id_escuela_samba;
     }

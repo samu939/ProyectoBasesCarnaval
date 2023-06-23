@@ -10,6 +10,6 @@ import com.Pruebas.Pruebas.Modelo.Participante;
 
 
 @Repository
-public interface ParticipanteRepository extends JpaRepository<Participante,Integer>{
+public interface ParticipanteRepository extends JpaRepository<Participante, Integer> {
     List<Participante> findAllByGenero(char genero);
 }

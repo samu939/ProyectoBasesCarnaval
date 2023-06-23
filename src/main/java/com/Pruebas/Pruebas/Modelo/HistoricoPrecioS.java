@@ -16,11 +16,11 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="ssa_hist_precio_sambodromo")
+@Table(name = "ssa_hist_precio_sambodromo")
 @IdClass(HistoricoPrecioSPK.class)
 public class HistoricoPrecioS {
     @Id
-    @ManyToOne(targetEntity = TipoEntrada.class,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = TipoEntrada.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tipo_entrada", referencedColumnName = "id")
     private TipoEntrada id_tipo_entrada;
     @Id

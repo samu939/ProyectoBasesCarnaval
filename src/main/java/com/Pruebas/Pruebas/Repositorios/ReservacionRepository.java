@@ -7,6 +7,6 @@ import com.Pruebas.Pruebas.Modelo.Reservacion;
 import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.ReservacionPK;
 
 @Repository
-public interface ReservacionRepository extends JpaRepository<Reservacion,ReservacionPK>{
-    
+public interface ReservacionRepository extends JpaRepository<Reservacion, ReservacionPK> {
+
 }

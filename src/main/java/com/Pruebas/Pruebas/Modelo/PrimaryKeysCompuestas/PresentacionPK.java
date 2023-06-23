@@ -12,6 +12,7 @@ public class PresentacionPK {
         result = prime * result + ((historicoGrupo == null) ? 0 : historicoGrupo.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -33,19 +34,25 @@ public class PresentacionPK {
             return false;
         return true;
     }
+
     private Calendario calendario;
     private HistoricoGrupo historicoGrupo;
+
     public PresentacionPK() {
     }
+
     public Calendario getCalendario() {
         return calendario;
     }
+
     public void setCalendario(Calendario calendario) {
         this.calendario = calendario;
     }
+
     public HistoricoGrupo getHistoricoGrupo() {
         return historicoGrupo;
     }
+
     public void setHistoricoGrupo(HistoricoGrupo historicoGrupo) {
         this.historicoGrupo = historicoGrupo;
     }

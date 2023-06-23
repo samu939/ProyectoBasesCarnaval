@@ -20,27 +20,27 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "ssa_cliente")
 @SequenceGenerator(
-    name="ssa_id_cliente",
-    sequenceName = "ssa_id_cliente",
-    initialValue = 1, 
-    allocationSize = 1
+        name = "ssa_id_cliente",
+        sequenceName = "ssa_id_cliente",
+        initialValue = 1,
+        allocationSize = 1
 )
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_cliente")
     private int id;
-    @Column(name="pnombre",length = 20,nullable = false)
+    @Column(name = "pnombre", length = 20, nullable = false)
     private String pnombre;
-    @Column(name="papellido",length = 20,nullable = false)
+    @Column(name = "papellido", length = 20, nullable = false)
     private String papellido;
-    @Column(name="sapellido",length = 20,nullable = false)
+    @Column(name = "sapellido", length = 20, nullable = false)
     private String sapellido;
-    @Column(name="fecha_naci",length = 20,nullable = false)
+    @Column(name = "fecha_naci", length = 20, nullable = false)
     private Date fecha_naci;
-    @Column(name="docidentidad",nullable = false)
+    @Column(name = "docidentidad", nullable = false)
     private long docidentidad;
-    @Column(name = "email",length = 40,nullable = false)
+    @Column(name = "email", length = 40, nullable = false)
     private String email;
-    @Column(name = "snombre",length = 20)
+    @Column(name = "snombre", length = 20)
     private String snombre;
 }

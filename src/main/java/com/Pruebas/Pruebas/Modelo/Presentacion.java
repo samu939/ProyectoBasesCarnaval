@@ -38,13 +38,13 @@ import jakarta.persistence.Table;
 public class Presentacion {
     @Id
     @ManyToOne(targetEntity = HistoricoGrupo.class, fetch = FetchType.EAGER)
-    @JoinColumns({ @JoinColumn(name = "id_escuela_samba", referencedColumnName = "id_escuela_samba"),
-            @JoinColumn(name = "fechai_historico_grupo", referencedColumnName = "fechai") })
+    @JoinColumns({@JoinColumn(name = "id_escuela_samba", referencedColumnName = "id_escuela_samba"),
+            @JoinColumn(name = "fechai_historico_grupo", referencedColumnName = "fechai")})
     private HistoricoGrupo historicoGrupo;
     @Id
     @ManyToOne(targetEntity = Calendario.class, fetch = FetchType.EAGER)
-    @JoinColumns({ @JoinColumn(name = "id_calendario", referencedColumnName = "id"),
-            @JoinColumn(name = "ano_carnaval", referencedColumnName = "ano_carnaval") })
+    @JoinColumns({@JoinColumn(name = "id_calendario", referencedColumnName = "id"),
+            @JoinColumn(name = "ano_carnaval", referencedColumnName = "ano_carnaval")})
     private Calendario calendario;
     @Column(nullable = false)
     private Time hora_inicio_escuela;

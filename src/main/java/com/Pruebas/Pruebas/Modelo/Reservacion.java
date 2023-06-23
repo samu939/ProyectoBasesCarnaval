@@ -21,12 +21,12 @@ import jakarta.persistence.Table;
 
 @Data
 @Entity
-@Table(name="ssa_reservacion")
+@Table(name = "ssa_reservacion")
 @SequenceGenerator(
-    name="ssa_numero_reservacion",
-    sequenceName="ssa_numero_reservacion",
-    initialValue = 1,
-    allocationSize = 1
+        name = "ssa_numero_reservacion",
+        sequenceName = "ssa_numero_reservacion",
+        initialValue = 1,
+        allocationSize = 1
 )
 @IdClass(ReservacionPK.class)
 public class Reservacion {
@@ -34,18 +34,18 @@ public class Reservacion {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_numero_reservacion")
     private int numero;
     @Id
-    @ManyToOne(targetEntity = Empresa.class,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Empresa.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_empresa", referencedColumnName = "id")
     private Empresa id_empresa;
     @Id
-    @ManyToOne(targetEntity = Cliente.class,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Cliente.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente id_cliente;
     @Column(nullable = false)
     private Date fecha_hora_emision;
-    @Column(name="total")
+    @Column(name = "total")
     private double total;
-    @Column(name="fechac")
+    @Column(name = "fechac")
     private LocalDate fechac;
 
 }

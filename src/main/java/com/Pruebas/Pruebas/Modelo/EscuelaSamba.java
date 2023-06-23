@@ -1,4 +1,5 @@
 package com.Pruebas.Pruebas.Modelo;
+
 import lombok.Data;
 import lombok.Getter;
 
@@ -25,22 +26,22 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "ssa_escuela_samba")
 @SequenceGenerator(
-    name="ssa_id_escuela_samba",
-    sequenceName = "ssa_id_escuela_samba",
-    initialValue = 1, 
-    allocationSize = 1
+        name = "ssa_id_escuela_samba",
+        sequenceName = "ssa_id_escuela_samba",
+        initialValue = 1,
+        allocationSize = 1
 )
 public class EscuelaSamba {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_escuela_samba")
     private int id;
-    @Column(name="fecha_funda",nullable = false)
+    @Column(name = "fecha_funda", nullable = false)
     private LocalDate fecha_funda;
-    @Column(name="nombre",length = 50,nullable = false)
+    @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
-    @Column(name = "direccion",length = 100,nullable = false)
+    @Column(name = "direccion", length = 100, nullable = false)
     private String direccion;
-    @Column(name = "resumen",length = 500,nullable = false)
+    @Column(name = "resumen", length = 500, nullable = false)
     private String resumen;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -48,12 +49,10 @@ public class EscuelaSamba {
     private LugarRegion id_lugar_region;
 
     @OneToMany(mappedBy = "id_escuela_samba")
-    private List<Participante> participante; 
+    private List<Participante> participante;
 
     @OneToMany(mappedBy = "id_escuela_samba")
-    private List<HistoricoGrupo> historicoGrupos; 
+    private List<HistoricoGrupo> historicoGrupos;
 
-    
-     
 
 }

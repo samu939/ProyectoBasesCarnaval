@@ -5,11 +5,11 @@ import com.Pruebas.Pruebas.Modelo.Empresa;
 import com.Pruebas.Pruebas.Modelo.TipoEntrada;
 
 public class AutorizadoPK {
-    
+
     private CarnavalAnual ano_carnaval;
     private TipoEntrada tipoEntrada;
     private Empresa empresa;
-    
+
     public AutorizadoPK() {
     }
 
@@ -80,5 +80,5 @@ public class AutorizadoPK {
         this.empresa = empresa;
     }
 
-    
+
 }

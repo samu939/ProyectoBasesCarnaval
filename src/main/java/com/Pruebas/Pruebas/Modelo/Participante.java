@@ -1,4 +1,5 @@
 package com.Pruebas.Pruebas.Modelo;
+
 import lombok.Data;
 import lombok.Getter;
 
@@ -24,25 +25,25 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "ssa_participante")
 @SequenceGenerator(
-    name="ssa_id_participante",
-    sequenceName = "ssa_id_participante",
-    initialValue = 1, 
-    allocationSize = 1
+        name = "ssa_id_participante",
+        sequenceName = "ssa_id_participante",
+        initialValue = 1,
+        allocationSize = 1
 )
 public class Participante {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_participante")
     private int id;
-    @Column(length = 20,nullable = false)
+    @Column(length = 20, nullable = false)
     private String pnombre;
-    @Column(length = 20,nullable = false)
+    @Column(length = 20, nullable = false)
     private String papellido;
-    @Column(length = 20,nullable = false)
+    @Column(length = 20, nullable = false)
     private String sapellido;
-    @Column(columnDefinition = "char not null constraint check_genero check(genero in('M','F'))",nullable = false) 
-    private char genero;   
-    @Column(unique = true,nullable = false)
+    @Column(columnDefinition = "char not null constraint check_genero check(genero in('M','F'))", nullable = false)
+    private char genero;
+    @Column(unique = true, nullable = false)
     private long docidentidad;
     @Column(length = 20)
     private String snombre;
@@ -51,7 +52,7 @@ public class Participante {
     private EscuelaSamba id_escuela_samba;
 
     @OneToMany(mappedBy = "id_rey")
-    private List<CarnavalAnual> carnavalRey; 
+    private List<CarnavalAnual> carnavalRey;
     @OneToMany(mappedBy = "id_reina")
     private List<CarnavalAnual> carnavalReina;
 

@@ -1,4 +1,5 @@
 package com.Pruebas.Pruebas.Modelo;
+
 import lombok.Data;
 import lombok.Getter;
 

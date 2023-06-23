@@ -2,6 +2,7 @@ package com.Pruebas.Pruebas.Modelo;
 
 import lombok.Data;
 import lombok.Getter;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,20 +21,20 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "SSA_lugar_region")
 @SequenceGenerator(
-    name="ssa_id_lugar_region",
-    sequenceName = "ssa_id_lugar_region",
-    initialValue = 1, 
-    allocationSize = 1
+        name = "ssa_id_lugar_region",
+        sequenceName = "ssa_id_lugar_region",
+        initialValue = 1,
+        allocationSize = 1
 )
 public class LugarRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_lugar_region")
     private int id;
-    @Column(name="nombre",length=20,nullable = false)
+    @Column(name = "nombre", length = 20, nullable = false)
     private String nombre;
-    @Column(name="descripcion", length=100,nullable = false)
+    @Column(name = "descripcion", length = 100, nullable = false)
     private String descripcion;
     @OneToMany(mappedBy = "id_lugar_region")
-    private List<EscuelaSamba> EscuelaSamba; 
+    private List<EscuelaSamba> EscuelaSamba;
 
 }

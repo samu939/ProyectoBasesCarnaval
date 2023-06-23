@@ -5,7 +5,7 @@ import com.Pruebas.Pruebas.Modelo.Participante;
 import com.Pruebas.Pruebas.Modelo.Presentacion;
 
 public class RolPresentacionPK {
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -14,6 +14,7 @@ public class RolPresentacionPK {
         result = prime * result + ((participante == null) ? 0 : participante.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -35,21 +36,27 @@ public class RolPresentacionPK {
             return false;
         return true;
     }
+
     public RolPresentacionPK() {
     }
+
     private Presentacion presentacion;
     private Participante participante;
+
     public Presentacion getPresentacion() {
         return presentacion;
     }
+
     public void setPresentacion(Presentacion presentacion) {
         this.presentacion = presentacion;
     }
+
     public Participante getParticipante() {
         return participante;
     }
+
     public void setParticipante(Participante participante) {
         this.participante = participante;
     }
-   
+
 }

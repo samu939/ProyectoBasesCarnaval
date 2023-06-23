@@ -20,15 +20,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "SSA_color")
 @SequenceGenerator(
-    name="ssa_id_color",
-    sequenceName = "ssa_id_color",
-    initialValue = 1, 
-    allocationSize = 1
+        name = "ssa_id_color",
+        sequenceName = "ssa_id_color",
+        initialValue = 1,
+        allocationSize = 1
 )
 public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_color")
     private int id;
-    @Column(name = "nombre",length = 20,nullable = false)
+    @Column(name = "nombre", length = 20, nullable = false)
     private String nombre;
 }

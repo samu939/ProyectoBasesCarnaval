@@ -20,17 +20,17 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "SSA_empresa")
 @SequenceGenerator(
-    name="ssa_id_empresa",
-    sequenceName = "ssa_id_empresa",
-    initialValue = 1, 
-    allocationSize = 1
+        name = "ssa_id_empresa",
+        sequenceName = "ssa_id_empresa",
+        initialValue = 1,
+        allocationSize = 1
 )
-public class Empresa{
+public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ssa_id_empresa")
     private int id;
-    @Column(name="nombre",length = 20,nullable = false)
+    @Column(name = "nombre", length = 20, nullable = false)
     private String nombre;
-    @Column(name="email",length = 40,nullable = false)
+    @Column(name = "email", length = 40, nullable = false)
     private String email;
 }

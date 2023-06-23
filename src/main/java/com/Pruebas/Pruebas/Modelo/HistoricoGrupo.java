@@ -1,4 +1,5 @@
 package com.Pruebas.Pruebas.Modelo;
+
 import lombok.Data;
 import lombok.Getter;
 
@@ -35,7 +36,7 @@ public class HistoricoGrupo {
     @Id
     private int id_escuela_samba;
 
-    @Column(columnDefinition = "VarChar(15) not null constraint check_grupo check (grupo in('acceso','especial'))",nullable = false,length = 15) 
+    @Column(columnDefinition = "VarChar(15) not null constraint check_grupo check (grupo in('acceso','especial'))", nullable = false, length = 15)
     private String grupo;
     @Column(nullable = true)
     private LocalDate fechaf;

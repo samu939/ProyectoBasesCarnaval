@@ -3,10 +3,10 @@ package com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas;
 import java.time.LocalDate;
 
 public class HistoricoPrecioSPK {
-    
+
     private int id_tipo_entrada;
     private LocalDate fechai;
-    
+
     public HistoricoPrecioSPK() {
     }
 
@@ -59,7 +59,5 @@ public class HistoricoPrecioSPK {
         this.fechai = fechai;
     }
 
-    
 
-    
 }
