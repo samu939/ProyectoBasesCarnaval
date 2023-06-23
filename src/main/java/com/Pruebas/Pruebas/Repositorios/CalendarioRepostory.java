@@ -27,4 +27,7 @@ public interface CalendarioRepostory extends JpaRepository<Calendario, Calendari
 
     @Query(value = "select * from ssa_calendario sc where sc.tipo='desfile' and (upper(sc.nombre) like '%'||'ACCESO'||'%' ) and sc.ano_carnaval=:ano", nativeQuery = true)
     Optional<Calendario> findDesfileAccesoByYear(@Param("ano") LocalDate ano);
+
+    @Query(value = "SELECT * FROM ssa_calendario where id=:id", nativeQuery = true)
+    Optional<Calendario> findByIdOnly(@Param("id") int id);
 }

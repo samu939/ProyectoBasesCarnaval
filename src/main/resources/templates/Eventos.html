@@ -91,6 +91,8 @@
         },3000);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <div class="alert alert-success my-2" th:text="${triunfo}" th:if="${triunfo ne null}"></div>
+    <div class="alert alert-danger my-2" th:text="${error}" th:if="${error ne null}"></div>
     <div class="alert alert-success my-2" th:text="${msgExitoAgregar}" th:if="${msgExitoAgregar ne null}"></div>
     <div class="alert alert-danger my-2" th:text="${msgFracasoAgregar}" th:if="${msgFracasoAgregar ne null}"></div>
     <div style="display: grid; place-items: center;margin-top: 20px;">
@@ -143,6 +145,7 @@
                     <button  style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver</button>    
                 </form>   
                 </td>
+                <td><a th:href="@{eliminarEvento/{id}(id=${evento.id})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Eliminar</a></td>
             </tr>
             </tbody>
         </table>

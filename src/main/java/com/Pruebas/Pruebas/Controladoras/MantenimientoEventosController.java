@@ -54,6 +54,21 @@ public class MantenimientoEventosController {
 
     }
     
+    @GetMapping("/eliminarEvento/{id}")
+    public String eliminarEvento(@PathVariable("id")int id,RedirectAttributes ra){
+        try{
+            CalendarioPK calendarioPK=new CalendarioPK();
+            calendarioPK.setId(id);
+            calendarioPK.setAno_carnaval(calendarioRepository.findByIdOnly(id).get().getAno_carnaval());
+            calendarioRepository.deleteById(calendarioPK);;
+             ra.addFlashAttribute("triunfo", "Evento eliminado con exito");
+        }catch (Exception e){
+            ra.addFlashAttribute("error", "No se puede eliminar un evento que ya tenga referencias");
+            return "redirect:/eventos";
+        }
+        return "redirect:/eventos";
+    }
+
     @GetMapping("/verEvento/{id}")
     public String verEvento(Model model,@RequestParam("ano") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate ano,@PathVariable("id")int id){
         CalendarioPK eventoPK= new CalendarioPK();
