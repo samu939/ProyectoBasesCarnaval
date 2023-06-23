@@ -47,9 +47,17 @@ public class AnoCarnavalController {
     @PostMapping("/crearAnoCarnaval")
     public String crearAnoCarnaval(CarnavalAnual carnaval, Model model, RedirectAttributes redirectAttributes) {
         Optional<CarnavalAnual> carnavalAnual = carnavalAnualRepository.findById(carnaval.getAno());
-        if (carnavalAnual.isPresent()) {
-            redirectAttributes.addFlashAttribute("errorCrearAno", "El año de carnaval ya existe");
-            return "redirect:/mantenimientoCarnaval";
+        List<CarnavalAnual> carnavalesAnuales= carnavalAnualRepository.findAll();
+        if(carnavalesAnuales.size()!=0){
+            Optional<CarnavalAnual> carnavalAnoAnterior = carnavalAnualRepository.findById(carnaval.getAno().minusYears(1));
+            if(!carnavalAnoAnterior.isPresent()){
+                redirectAttributes.addFlashAttribute("errorCrearAno", "Los años de carnavales tienen que ser consecutivos, no existe carnaval del año anterior");
+                return "redirect:/mantenimientoCarnaval";
+            }
+            if (carnavalAnual.isPresent()) {
+                redirectAttributes.addFlashAttribute("errorCrearAno", "El año de carnaval ya existe");
+                return "redirect:/mantenimientoCarnaval";
+            }
         }
         carnavalAnualRepository.save(carnaval);
         redirectAttributes.addFlashAttribute("successCrearAno", "El año de carnaval se ha creado correctamente");

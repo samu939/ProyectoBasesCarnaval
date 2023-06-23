@@ -36,5 +36,10 @@ public class InicioController {
         return "mantenimientoCarnaval";
     }
 
+    @GetMapping("/menuReservas")
+    public String reserva(Model model){
+        return "menuReservas";
+    }
+
 
 }

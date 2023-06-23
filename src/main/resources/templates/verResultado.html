@@ -114,6 +114,7 @@
                     <th scope="col">NOMBRE ESCUELA</th>
                     <th scope="col">POSICION</th>
                     <th scope="col">TEMA GENERAL</th>
+                    <th scope="col">DESFILE</th>
                     <th scope="col">ORDEN DESFILE</th>
                     <th scope="col">GRUPO</th>
                 </tr>
@@ -123,6 +124,7 @@
                 <td scope="row" th:text="${presentacionEspecial.historicoGrupo.escuela_samba.nombre}"></td>
                 <td th:text="${presentacionEspecial.resultado}"></td>
                 <td th:text="${presentacionEspecial.tema_general}"></td>
+                <td th:text="${presentacionEspecial.calendario.nombre}"></td>
                 <td th:text="${presentacionEspecial.orden_desfile}"></td>
                 <td th:text="${presentacionEspecial.historicoGrupo.grupo}"></td>
             </tr>
@@ -148,6 +150,7 @@
                 <th scope="col">NOMBRE ESCUELA</th>
                 <th scope="col">POSICION</th>
                 <th scope="col">TEMA GENERAL</th>
+                <th scope="col">DESFILE</th>
                 <th scope="col">ORDEN DESFILE</th>
                 <th scope="col">GRUPO</th>
             </tr>
@@ -157,6 +160,7 @@
             <td scope="row" th:text="${presentacionAcceso.historicoGrupo.escuela_samba.nombre}"></td>
             <td th:text="${presentacionAcceso.resultado}"></td>
             <td th:text="${presentacionAcceso.tema_general}"></td>
+            <td th:text="${presentacionAcceso.calendario.nombre}"></td>
             <td th:text="${presentacionAcceso.orden_desfile}"></td>
             <td th:text="${presentacionAcceso.historicoGrupo.grupo}"></td>
         </tr>

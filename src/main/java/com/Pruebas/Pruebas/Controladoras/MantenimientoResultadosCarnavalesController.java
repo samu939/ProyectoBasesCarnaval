@@ -27,6 +27,7 @@ import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.CalendarioPK;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import com.Pruebas.Pruebas.Repositorios.CarnavalAnualRepository;
 import com.Pruebas.Pruebas.Repositorios.EscuelaSambaRepository;
+import com.Pruebas.Pruebas.Repositorios.HistoricoGrupoInsertRepository;
 import com.Pruebas.Pruebas.Repositorios.HistoricoGrupoRepository;
 import com.Pruebas.Pruebas.Repositorios.ParticipanteRepository;
 import com.Pruebas.Pruebas.Repositorios.PresentacionRepository;
@@ -47,6 +48,8 @@ public class MantenimientoResultadosCarnavalesController {
     HistoricoGrupoRepository historicoGrupoRepository;
     @Autowired
     CalendarioRepostory calendarioRepostory;
+    @Autowired
+    HistoricoGrupoInsertRepository historicoGrupoInsertRepository;
 
     @GetMapping("/resultadosCarnavales")
     public String eventos(Model model) {
@@ -68,6 +71,19 @@ public class MantenimientoResultadosCarnavalesController {
     public String AnoSeleccionadoResultadoVer(CarnavalAnual carnaval){
         Optional<CarnavalAnual> carnavalElegido = carnavalAnualRepository.findById(carnaval.getAno());
         return "redirect:/verResultado/"+carnavalElegido.get().getAno();
+
+    }
+
+    @GetMapping("/verResultado/{ano}")
+    public String verResultado(Model model,@PathVariable("ano") LocalDate ano){
+        List<Presentacion> presentacionEsp= presentacionRepository.findAllByAno_Carnaval(ano, "especial");
+        List<Presentacion> presentacionAcc= presentacionRepository.findAllByAno_Carnaval(ano, "acceso");
+        Optional<CarnavalAnual> carnaval = carnavalAnualRepository.findById(ano);
+        model.addAttribute("presentacionesEspecial", presentacionEsp);
+        model.addAttribute("presentacionesAcceso", presentacionAcc);
+        model.addAttribute("carnaval", carnaval.get());
+        
+        return "verResultado";
 
     }
 
@@ -164,6 +180,13 @@ public class MantenimientoResultadosCarnavalesController {
         Optional<Calendario> calendario = calendarioRepostory.findById(calendarioPK);
         presentacion.setCalendario(calendario.get());
         presentacion.setHistoricoGrupo(histGrupo.get());
+        if(carnavalAnualRepository.existsById(ano.minusYears(1))){
+            Optional<Presentacion> presentacionAA= presentacionRepository.findSameYear(presentacion.getHistoricoGrupo().getId_escuela_samba(), ano.minusYears(1));
+            if(!presentacionAA.isPresent()){
+                ra.addFlashAttribute("errorPresentacionMismoAno", "La escuela elegida no tiene un registro de participacion el año anterior");
+                return "redirect:/resultadosCarnavales";
+            }
+        }
         Optional<Presentacion> presentacionMA= presentacionRepository.findSameYear(presentacion.getHistoricoGrupo().getId_escuela_samba(), ano);
         if(presentacionMA.isPresent()){
             ra.addFlashAttribute("errorPresentacionMismoAno", "La escuela elegida ya tiene un resultado en el año elegido");
@@ -192,6 +215,20 @@ public class MantenimientoResultadosCarnavalesController {
         if(presentacionMH.isPresent()){
             ra.addFlashAttribute("errorPresentacionMismoOrden", "Ya hay una escuela con esa hora en ese mismo evento");
             return "redirect:/crearResultado/{ano}/{id}/{idCalendario}";
+        }
+        if(presentacion.getHistoricoGrupo().getGrupo().equals("especial") && presentacion.getResultado()==12 ){
+            ano=ano.plusMonths(11);
+            ano=ano.plusDays(30);
+            histGrupo.get().setFechaf(ano);
+            historicoGrupoRepository.save(histGrupo.get());
+            historicoGrupoInsertRepository.insertHistoricoNuevo(histGrupo.get(),"acceso");
+        }
+        if(presentacion.getHistoricoGrupo().getGrupo().equals("acceso") && presentacion.getResultado()==1 ){
+            ano=ano.plusMonths(11);
+            ano=ano.plusDays(30);
+            histGrupo.get().setFechaf(ano);
+            historicoGrupoRepository.save(histGrupo.get());
+            historicoGrupoInsertRepository.insertHistoricoNuevo(histGrupo.get(),"especial");
         }
         //falta crear el historico de grupo a los que decienden/ascienden
         presentacionRepository.save(presentacion);

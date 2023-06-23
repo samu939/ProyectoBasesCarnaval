@@ -37,7 +37,7 @@ public class HistoricoGrupo {
 
     @Column(columnDefinition = "VarChar(15) not null constraint check_grupo check (grupo in('acceso','especial'))",nullable = false,length = 15) 
     private String grupo;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDate fechaf;
 
     @MapsId("id_escuela_samba")

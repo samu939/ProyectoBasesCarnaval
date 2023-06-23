@@ -17,10 +17,7 @@ public class ReservaController {
     @Autowired
     private ReservacionRepository reservacionRepository;
 
-    @GetMapping("/menuReservas")
-    public String reserva(Model model){
-        return "menuReservas";
-    }
+    
 
     @GetMapping("/crearReserva")
     public String nuevaReserva(Model model){
