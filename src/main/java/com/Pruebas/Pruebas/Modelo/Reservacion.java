@@ -34,11 +34,11 @@ public class Reservacion {
     private int numero;
     @Id
     @ManyToOne(targetEntity = Empresa.class,fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id_empresa")
+    @JoinColumn(name = "id_empresa", referencedColumnName = "id")
     private Empresa id_empresa;
     @Id
     @ManyToOne(targetEntity = Cliente.class,fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente id_cliente;
     @Column(nullable = false)
     private Date fecha_hora_emision;

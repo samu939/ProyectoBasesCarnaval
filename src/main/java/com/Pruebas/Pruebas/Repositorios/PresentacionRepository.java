@@ -1,5 +1,6 @@
 package com.Pruebas.Pruebas.Repositorios;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +29,7 @@ public interface PresentacionRepository extends JpaRepository<Presentacion,Prese
 
     @Query(value = "select * from ssa_presentacion sp where sp.ano_carnaval=:ano and (sp.id_calendario=(select sc.id from ssa_calendario sc where sc.tipo='desfile' and upper(sc.nombre) like '%'||'ACCESO'||'%' and sc.ano_carnaval=:ano)) and sp.resultado=:pos",nativeQuery = true)
     Optional<Presentacion> findSamePosAcceso(@Param("ano")LocalDate ano,@Param("pos") int pos);
+
+    @Query(value = "select * from ssa_presentacion sp where sp.id_calendario=:id and sp.ano_carnaval=:ano and sp.hora_inicio_escuela=:hora",nativeQuery = true)
+    Optional<Presentacion> findSameHour(@Param("id")int id, @Param("ano") LocalDate ano,@Param("hora") Time hora);
 }

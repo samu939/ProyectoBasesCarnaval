@@ -188,7 +188,12 @@ public class MantenimientoResultadosCarnavalesController {
                 return "redirect:/crearResultado/{ano}/{id}/{idCalendario}";
             }
         }
-        //Falta validar si esta a la misma hora y falta crear el historico de grupo a los que decienden/ascienden
+        Optional<Presentacion> presentacionMH= presentacionRepository.findSameHour(presentacion.getCalendario().getId(), ano,presentacion.getHora_inicio_escuela());
+        if(presentacionMH.isPresent()){
+            ra.addFlashAttribute("errorPresentacionMismoOrden", "Ya hay una escuela con esa hora en ese mismo evento");
+            return "redirect:/crearResultado/{ano}/{id}/{idCalendario}";
+        }
+        //falta crear el historico de grupo a los que decienden/ascienden
         presentacionRepository.save(presentacion);
         ra.addFlashAttribute("resultadoCreado", "Resultado creado con exito");
         return "redirect:/resultadosCarnavales";
