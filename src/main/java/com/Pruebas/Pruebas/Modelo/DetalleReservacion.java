@@ -26,7 +26,7 @@ public class DetalleReservacion {
     private Autorizado autorizado;
     @Id
     @ManyToOne(targetEntity = Reservacion.class, fetch = FetchType.EAGER)
-    @JoinColumns({@JoinColumn(name = "id_empresa_reservacion", referencedColumnName = "id_empresa"),
+    @JoinColumns({@JoinColumn(name = "id_empresa_reserva", referencedColumnName = "id_empresa"),
                 @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente"),
                 @JoinColumn(name = "num_reservacion", referencedColumnName = "numero")})
     private Reservacion reservacion;
