@@ -28,7 +28,7 @@
             -webkit-background-clip: text;
             color: transparent;
             padding: 10px;
-            width: 29ch;
+            width: 30.6ch;
             animation: typing 2s steps(50),blink .5s step-end infinite;
             white-space: nowrap;
             overflow: hidden;
@@ -91,9 +91,13 @@
         },3000);
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
+    <div class="alert alert-danger my-2" th:text="${errorHistorico}" th:if="${errorHistorico ne null}"></div>
+    <div class="alert alert-success my-2" th:text="${resultadoCreado}" th:if="${resultadoCreado ne null}"></div>
+    <div class="alert alert-danger my-2" th:text="${errorPresentacionMismoAno}" th:if="${errorPresentacionMismoAno ne null}"></div>
+
+
     <div style="display: grid; place-items: center;margin-top: 100px;">
-        <a href="/" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;margin-bottom: 2ch;" class="btn btn-primary">Agregar Resultado</a>
+        <a href="/elegirAnoResultadoCrear" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;margin-bottom: 2ch;" class="btn btn-primary">Agregar Resultado</a>
         <a href="/elegirAnoResultadoVer" style="padding: 10PX; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder; font-size: 5ch;" class="btn btn-primary">Ver Resultado Carnaval</a>
     </div>
     

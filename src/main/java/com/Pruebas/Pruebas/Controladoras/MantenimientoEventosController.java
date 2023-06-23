@@ -100,6 +100,25 @@ public class MantenimientoEventosController {
         
         Optional <CarnavalAnual> anoCarnaval= carnavalAnualRepository.findById(ano);
         calendario.setAno_carnaval(anoCarnaval.get());
+        if(calendario.getTipo().equals("desfile")){
+            if(calendario.getNombre().toUpperCase().contains("ESPECIAL")){
+                List<Calendario> eventosEspecial=calendarioRepository.findAllDesfilesEspecialByYear(ano);
+                if(eventosEspecial.size()>=2){
+                    ra.addFlashAttribute("msgFracasoAgregar", "No se puede agregar mas de 2 desfiles especiales");
+                    return "redirect:/CrearEvento/"+ano;
+                }
+                if((eventosEspecial.get(0).getNombre().contains("1") && calendario.getNombre().contains("1"))||(eventosEspecial.get(0).getNombre().contains("2") && calendario.getNombre().contains("2"))){
+                   ra.addFlashAttribute("msgFracasoAgregar", "No se puede agregar mas de 1 desfile especiales del dia 1 o 2");
+                    return "redirect:/CrearEvento/"+ano;
+                }
+            }else{
+                Optional<Calendario> eventoAcceso= calendarioRepository.findDesfileAccesoByYear(ano);
+                if(eventoAcceso.isPresent()){
+                    ra.addFlashAttribute("msgFracasoAgregar", "No se puede agregar mas de 1 desfile de acceso");
+                    return "redirect:/CrearEvento/"+ano;
+                }
+            }
+        }
         try{
             calendarioRepository.save(calendario);
         }catch(Exception e){

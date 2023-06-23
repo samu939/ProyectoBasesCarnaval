@@ -8,6 +8,13 @@
 </head>
 <body class="container">
     <h2 style="padding: 20px;">Crear Evento</h2>
+    <script>
+        setTimeout(function(){
+        $('.alert').fadeOut('slow');
+        },3000);
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <div class="alert alert-danger my-2" th:text="${msgFracasoAgregar}" th:if="${msgFracasoAgregar ne null}"></div>
     <form class="row g-3" id="crearEvento" action="" method="post" th:object="${calendario}" novalidate>
         <div class="input-group">
             <span class="input-group-text">Año Carnaval</span>
@@ -24,7 +31,7 @@
             
         </div>
         <div class="input-group">
-            <span class="input-group-text">Hora inicio (HH:MM:SS)</span>
+            <span class="input-group-text">Hora inicio (HH:MM)</span>
             <input  class="form-control" id="horai" type="text" th:field="*{horai}" required pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$">
         </div>
         
@@ -89,16 +96,21 @@
                 }
                 var hora = document.getElementById('horai').value;
 
-                var rex=/^([0-9][0-9]):[0-5][0-9](:[0-5][0-9])$/;
+                var rex=/^([0-9][0-9]):[0-5][0-9]$/;
                 if (conf==0){
                     if(!rex.test(hora) || Number(hora.substr(0,2))>24){
-                        alert('la hora tiene que tener el formato HH:MM:SS');
+                        alert('la hora tiene que tener el formato HH:MM');
                         conf=1;
                     }
                 }
                 
                 if(tipo=="desfile" && lugar != 1 && conf==0){
                     alert('Los desfiles solo pueden ser en el sambodromo');
+                    conf=1;
+                }
+
+                if(tipo=="desfile" && !(nombre.toUpperCase().includes('ACCESO') || (nombre.toUpperCase().includes('ESPECIAL') && (nombre.toUpperCase().includes('1') || nombre.toUpperCase().includes('2'))))){
+                    alert('Los desfiles Tienen que tener en el nombre "acceso" o "especial", en el caso del especial "1" o "2" dependiendo del dia del desfile que es');
                     conf=1;
                 }
 
@@ -127,6 +139,8 @@
                 if(conf==0){
                     var resultado = confirm("Seguro que Quiere Crear el evento: "+nombre+"?");  
                     if(resultado){
+                        hora=hora+":00";
+                        document.getElementById("horai").value=hora;
                         document.getElementById("crearEvento").submit();
                     }
                 
