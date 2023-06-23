@@ -12,11 +12,11 @@ public class Autorizado {
     @Id
     @ManyToOne(targetEntity = TipoEntrada.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tipoEntrada", referencedColumnName = "id")
-    private TipoEntrada id_tipoEntrada;
+    private TipoEntrada tipoEntrada;
     @Id
     @ManyToOne(targetEntity = Empresa.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_empresa", referencedColumnName = "id")
-    private Empresa id_empresa;
+    private Empresa empresa;
     @Id
     @ManyToOne(targetEntity = CarnavalAnual.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "ano_carnaval", referencedColumnName = "ano")

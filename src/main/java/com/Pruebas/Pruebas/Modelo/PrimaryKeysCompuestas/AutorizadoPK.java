@@ -8,7 +8,7 @@ public class AutorizadoPK {
 
     private CarnavalAnual ano_carnaval;
     private TipoEntrada tipoEntrada;
-    private Empresa empresa;
+    private Empresa empresa; 
 
     public AutorizadoPK() {
     }
