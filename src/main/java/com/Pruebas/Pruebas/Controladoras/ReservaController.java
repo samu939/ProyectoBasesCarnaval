@@ -17,8 +17,6 @@ public class ReservaController {
     @Autowired
     private ReservacionRepository reservacionRepository;
 
-    
-
     @GetMapping("/crearReserva")
     public String nuevaReserva(Model model){
         model.addAttribute("reservas", new Reservacion());
