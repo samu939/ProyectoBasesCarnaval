@@ -69,8 +69,8 @@ public class MantenimientoEventosController {
         return "redirect:/eventos";
     }
 
-    @GetMapping("/verEvento/{id}")
-    public String verEvento(Model model,@RequestParam("ano") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate ano,@PathVariable("id")int id){
+    @GetMapping("/verEvento/{id}/{ano}")
+    public String verEvento(Model model,@PathVariable("ano") LocalDate ano,@PathVariable("id")int id){
         CalendarioPK eventoPK= new CalendarioPK();
         Optional<CarnavalAnual> carnaval = carnavalAnualRepository.findById(ano);
         eventoPK.setAno_carnaval(carnaval.get());
