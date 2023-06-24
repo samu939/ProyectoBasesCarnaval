@@ -29,7 +29,8 @@ import com.Pruebas.Pruebas.Repositorios.PresentacionRepository;
 import org.springframework.ui.Model;
 
 @Controller
-public class AnoCarnavalController {
+public class
+AnoCarnavalController {
     @Autowired
     private CarnavalAnualRepository carnavalAnualRepository;
     @Autowired
