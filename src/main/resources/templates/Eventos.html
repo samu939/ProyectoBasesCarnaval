@@ -141,7 +141,7 @@
                 <td th:text="${evento.pago}"></td>
                 <td style="display: grid; place-items: center;">
                 <form th:action="@{verEvento/{id}(id=${evento.id})}">
-                    <input type="text" name="ano" th:value="${evento.ano_carnaval.ano}"  style="margin-right: 10px; background-color: transparent; border-color: transparent; padding: 0px;">
+                    <input type="text" name="ano" th:value="${evento.ano_carnaval.ano}"  style="margin-right: 10px; background-color: transparent; border-color: transparent; padding: 0px; color: #000;" disabled>
                     <button  style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver</button>    
                 </form>   
                 </td>
