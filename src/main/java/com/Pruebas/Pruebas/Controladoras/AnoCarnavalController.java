@@ -36,9 +36,13 @@ AnoCarnavalController {
     @Autowired
     private ParticipanteRepository participanteRepository;
     @GetMapping("/crearAnoCarnaval")
-    public String crearAnoCarnaval(Model model) {
+    public String crearAnoCarnaval(Model model, RedirectAttributes ra) {
         List<Participante> participantesH=participanteRepository.findAllByGenero('M');
         List<Participante> participantesF=participanteRepository.findAllByGenero('F');
+        if(participantesF.size()==0 || participantesH.size()==0){
+            ra.addFlashAttribute("errorCrearAno", "Tiene que haber al menos 1 participante hombre y 1 mujer guardados para crear un nuevo año");
+                return "redirect:/mantenimientoCarnaval";
+        }
         model.addAttribute("carnaval", new CarnavalAnual());
         model.addAttribute("participantesH", participantesH);
         model.addAttribute("participantesF", participantesF);
@@ -51,8 +55,9 @@ AnoCarnavalController {
         List<CarnavalAnual> carnavalesAnuales= carnavalAnualRepository.findAll();
         if(carnavalesAnuales.size()!=0){
             Optional<CarnavalAnual> carnavalAnoAnterior = carnavalAnualRepository.findById(carnaval.getAno().minusYears(1));
-            if(!carnavalAnoAnterior.isPresent()){
-                redirectAttributes.addFlashAttribute("errorCrearAno", "Los años de carnavales tienen que ser consecutivos, no existe carnaval del año anterior");
+            Optional<CarnavalAnual> carnavalAnoSiguiente = carnavalAnualRepository.findById(carnaval.getAno().plusYears(1));
+            if(!carnavalAnoAnterior.isPresent() && !carnavalAnoSiguiente.isPresent()){
+                redirectAttributes.addFlashAttribute("errorCrearAno", "Los años de carnavales tienen que ser consecutivos, no existe carnaval del año anterior o siguiente");
                 return "redirect:/mantenimientoCarnaval";
             }
             if (carnavalAnual.isPresent()) {
