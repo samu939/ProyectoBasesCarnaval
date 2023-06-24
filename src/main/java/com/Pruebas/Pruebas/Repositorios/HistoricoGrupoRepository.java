@@ -20,7 +20,7 @@ import jakarta.websocket.server.PathParam;
 @Repository
 public interface HistoricoGrupoRepository extends JpaRepository<HistoricoGrupo, HistoricoGrupoPK> {
 
-    @Query(value = "select * from ssa_hist_grupo shg where shg.id_escuela_samba =:id and shg.fechaf is null and shg.fechai<:ano", nativeQuery = true)
+    @Query(value = "select * from ssa_hist_grupo shg where shg.id_escuela_samba =:id and shg.fechaf is null and shg.fechai<=:ano", nativeQuery = true)
     Optional<HistoricoGrupo> findActiveById(@Param("id") int id,@Param("ano")LocalDate ano);
 
     @Query(value = "select * from ssa_hist_grupo shg where shg.id_escuela_samba =:id and shg.fechaf is null", nativeQuery = true)

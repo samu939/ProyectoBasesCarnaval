@@ -90,12 +90,12 @@
         </div>
         <div class="input-group">
             <span class="input-group-text">Rey Carnaval</span>
-            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_rey.pnombre}+' '+${carnaval.id_rey.papellido}" disabled>
+            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_rey.pnombre}+' '+${carnaval.id_rey.papellido}+'     Doc. Identidad: '+${carnaval.id_rey.docidentidad}" disabled>
         </div>
 
         <div class="input-group">
             <span class="input-group-text">Reina Carnaval</span>
-            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_reina.pnombre}+' '+${carnaval.id_reina.papellido}" disabled>
+            <input class="form-control" id="nombre" type="text" th:value="${carnaval.id_reina.pnombre}+' '+${carnaval.id_reina.papellido}+'     Doc. Identidad: '+${carnaval.id_reina.docidentidad}" disabled>
         </div>
     </form>    
 
@@ -120,6 +120,7 @@
                     <th scope="col">DESFILE</th>
                     <th scope="col">ORDEN DESFILE</th>
                     <th scope="col">GRUPO</th>
+                    <th scope="col">CANCION</th>
                 </tr>
             </thead>
             <tbody>
@@ -131,6 +132,7 @@
                 <td th:text="${presentacionEspecial.calendario.nombre}"></td>
                 <td th:text="${presentacionEspecial.orden_desfile}"></td>
                 <td th:text="${presentacionEspecial.historicoGrupo.grupo}"></td>
+                <td><a th:href="@{/verLetra/{fechai}/{id}/{idCal}/{ano}(fechai=${presentacionEspecial.historicoGrupo.fechai},id=${presentacionEspecial.historicoGrupo.escuela_samba.id},idCal=${presentacionEspecial.calendario.id},ano=${carnaval.ano})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver Letra</a></td>
             </tr>
             </tbody>
         </table>
@@ -158,6 +160,8 @@
                 <th scope="col">DESFILE</th>
                 <th scope="col">ORDEN DESFILE</th>
                 <th scope="col">GRUPO</th>
+                <th scope="col">CANCION</th>
+
             </tr>
         </thead>
         <tbody>
@@ -169,6 +173,8 @@
             <td th:text="${presentacionAcceso.calendario.nombre}"></td>
             <td th:text="${presentacionAcceso.orden_desfile}"></td>
             <td th:text="${presentacionAcceso.historicoGrupo.grupo}"></td>
+            <td><a th:href="@{/verLetra/{fechai}/{id}/{idCal}/{ano}(fechai=${presentacionAcceso.historicoGrupo.fechai},id=${presentacionAcceso.historicoGrupo.escuela_samba.id},idCal=${presentacionAcceso.calendario.id},ano=${carnaval.ano})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver Letra</a></td>
+
             
         </tr>
         </tbody>

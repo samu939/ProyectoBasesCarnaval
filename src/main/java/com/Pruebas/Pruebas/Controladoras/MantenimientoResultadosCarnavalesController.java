@@ -25,6 +25,8 @@ import com.Pruebas.Pruebas.Modelo.HistoricoGrupo;
 import com.Pruebas.Pruebas.Modelo.Participante;
 import com.Pruebas.Pruebas.Modelo.Presentacion;
 import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.CalendarioPK;
+import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.HistoricoGrupoPK;
+import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.PresentacionPK;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import com.Pruebas.Pruebas.Repositorios.CarnavalAnualRepository;
 import com.Pruebas.Pruebas.Repositorios.ColorRepository;
@@ -106,6 +108,23 @@ public class MantenimientoResultadosCarnavalesController {
         model.addAttribute("ano", ano);
         model.addAttribute("historicoActual", historicoActual.get());
         return "verEscuelaDetalle";
+
+    }
+
+    @GetMapping("/verLetra/{fechai}/{id}/{idCal}/{ano}")
+    public String VerLetra(Model model,@PathVariable("id") int idEsc,@PathVariable("ano")LocalDate ano, @PathVariable("fechai")LocalDate fechai,
+    @PathVariable("idCal") int idCal){
+        CalendarioPK calendarioPK = new CalendarioPK();
+        calendarioPK.setAno_carnaval(carnavalAnualRepository.findById(ano).get());
+        calendarioPK.setId(idCal);
+        HistoricoGrupoPK historicoGrupoPK=new HistoricoGrupoPK(fechai, idEsc);
+        PresentacionPK presentacionPK = new PresentacionPK();
+        presentacionPK.setCalendario(calendarioRepostory.findById(calendarioPK).get());
+        presentacionPK.setHistoricoGrupo(historicoGrupoRepository.findById(historicoGrupoPK).get());
+        Optional<Presentacion> presentacion = presentacionRepository.findById(presentacionPK);
+        model.addAttribute("presentacion", presentacion.get());
+        model.addAttribute("ano",ano);
+        return "verLetraCancion";
 
     }
 
