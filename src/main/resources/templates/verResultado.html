@@ -114,6 +114,7 @@
             <thead>
                 <tr>
                     <th scope="col">NOMBRE ESCUELA</th>
+                    <th scope="col"></th>
                     <th scope="col">POSICION</th>
                     <th scope="col">TEMA GENERAL</th>
                     <th scope="col">DESFILE</th>
@@ -124,6 +125,7 @@
             <tbody>
             <tr th:each="presentacionEspecial : ${presentacionesEspecial}">
                 <td scope="row" th:text="${presentacionEspecial.historicoGrupo.escuela_samba.nombre}"></td>
+                <td><a th:href="@{/verDetalleEscuela/{id}/{ano}(id=${presentacionEspecial.historicoGrupo.escuela_samba.id},ano=${carnaval.ano})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver Detalles Escuela</a></td>
                 <td th:text="${presentacionEspecial.resultado}"></td>
                 <td th:text="${presentacionEspecial.tema_general}"></td>
                 <td th:text="${presentacionEspecial.calendario.nombre}"></td>
@@ -150,6 +152,7 @@
         <thead>
             <tr>
                 <th scope="col">NOMBRE ESCUELA</th>
+                <th scope="col"></th>
                 <th scope="col">POSICION</th>
                 <th scope="col">TEMA GENERAL</th>
                 <th scope="col">DESFILE</th>
@@ -160,6 +163,7 @@
         <tbody>
         <tr th:each="presentacionAcceso : ${presentacionesAcceso}">
             <td scope="row" th:text="${presentacionAcceso.historicoGrupo.escuela_samba.nombre}"></td>
+            <td><a th:href="@{/verDetalleEscuela/{id}/{ano}(id=${presentacionAcceso.historicoGrupo.escuela_samba.id},ano=${carnaval.ano})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver Detalles Escuela</a></td>
             <td th:text="${presentacionAcceso.resultado}"></td>
             <td th:text="${presentacionAcceso.tema_general}"></td>
             <td th:text="${presentacionAcceso.calendario.nombre}"></td>

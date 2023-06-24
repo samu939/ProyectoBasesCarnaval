@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Pruebas.Pruebas.Modelo.Calendario;
 import com.Pruebas.Pruebas.Modelo.CarnavalAnual;
+import com.Pruebas.Pruebas.Modelo.Color;
 import com.Pruebas.Pruebas.Modelo.EscuelaSamba;
 import com.Pruebas.Pruebas.Modelo.HistoricoGrupo;
 import com.Pruebas.Pruebas.Modelo.Participante;
@@ -26,6 +27,7 @@ import com.Pruebas.Pruebas.Modelo.Presentacion;
 import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.CalendarioPK;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import com.Pruebas.Pruebas.Repositorios.CarnavalAnualRepository;
+import com.Pruebas.Pruebas.Repositorios.ColorRepository;
 import com.Pruebas.Pruebas.Repositorios.EscuelaSambaRepository;
 import com.Pruebas.Pruebas.Repositorios.HistoricoGrupoInsertRepository;
 import com.Pruebas.Pruebas.Repositorios.HistoricoGrupoRepository;
@@ -50,6 +52,8 @@ public class MantenimientoResultadosCarnavalesController {
     CalendarioRepostory calendarioRepostory;
     @Autowired
     HistoricoGrupoInsertRepository historicoGrupoInsertRepository;
+    @Autowired
+    ColorRepository coloresRepository;
 
     @GetMapping("/resultadosCarnavales")
     public String eventos(Model model) {
@@ -87,6 +91,21 @@ public class MantenimientoResultadosCarnavalesController {
 
     }
 
+
+    @GetMapping("/verDetalleEscuela/{id}/{ano}")
+    public String verEscuelaDetalle(Model model,@PathVariable("id") int id,@PathVariable("ano")LocalDate ano){
+        Optional<HistoricoGrupo> historicoActual= historicoGrupoRepository.findActiveById(id);
+        Optional<EscuelaSamba> escuelaDetalle = escuelaSambaRepository.findById(id);
+        List<Color> coloresEscuela = coloresRepository.findColoresByEscuelaId(id);
+        model.addAttribute("escuelaDetalle", escuelaDetalle.get());
+        model.addAttribute("coloresEscuela", coloresEscuela);
+        model.addAttribute("ano", ano);
+        model.addAttribute("historicoActual", historicoActual.get());
+        return "verEscuelaDetalle";
+
+    }
+
+
     @GetMapping("/elegirAnoResultadoCrear")
     public String ElegirAnoResultadoCrear(Model model){
         List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
@@ -104,8 +123,12 @@ public class MantenimientoResultadosCarnavalesController {
     }
 
     @GetMapping("/elegirEscuelaResultadoCrear/{ano}")
-    public String ElegirEscuelaResultadoCrear(Model model,@PathVariable("ano") LocalDate ano){
-        List<EscuelaSamba> escuelas = escuelaSambaRepository.findAll();
+    public String ElegirEscuelaResultadoCrear(Model model,@PathVariable("ano") LocalDate ano,RedirectAttributes ra){
+        List<EscuelaSamba> escuelas = escuelaSambaRepository.findDontHavePresentationInYear(ano);
+        if(escuelas.size()==0){
+            ra.addFlashAttribute("errorEscuelas", "Todas las escuelas ya tienen presentacion creada este año");
+            return "redirect:/resultadosCarnavales";
+        }
         model.addAttribute("escuelas", escuelas);
         model.addAttribute("escuela", new EscuelaSamba());
         
@@ -126,9 +149,13 @@ public class MantenimientoResultadosCarnavalesController {
 
 
     @GetMapping("/elegirCalendarioResultadoCrear/{ano}/{id}")
-    public String ElegirCalendarioResultado(Model model, @PathVariable("ano") LocalDate ano, @PathVariable("id") int id){
+    public String ElegirCalendarioResultado(Model model, @PathVariable("ano") LocalDate ano, @PathVariable("id") int id, RedirectAttributes ra){
         Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id);
         List<Calendario> eventos = calendarioRepostory.findAllDesfilesByYearAndName(ano, histGrupo.get().getGrupo());
+        if(eventos.size()==0){
+            ra.addFlashAttribute("errorEscuelas", "No hay ningun desfile creado para este grupo este año");
+            return "redirect:/resultadosCarnavales";
+        }
         model.addAttribute("eventos", eventos);
         model.addAttribute("evento", new Calendario());
         
@@ -230,7 +257,6 @@ public class MantenimientoResultadosCarnavalesController {
             historicoGrupoRepository.save(histGrupo.get());
             historicoGrupoInsertRepository.insertHistoricoNuevo(histGrupo.get(),"especial");
         }
-        //falta crear el historico de grupo a los que decienden/ascienden
         presentacionRepository.save(presentacion);
         ra.addFlashAttribute("resultadoCreado", "Resultado creado con exito");
         return "redirect:/resultadosCarnavales";
