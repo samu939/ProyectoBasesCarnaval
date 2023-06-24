@@ -83,8 +83,12 @@ public class MantenimientoEventosController {
     }
 
     @GetMapping("/elegirAnoEvento")
-    public String ElegirAnoEvento(Model model){
-        List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
+    public String ElegirAnoEvento(Model model,RedirectAttributes ra){
+        List<CarnavalAnual> carnavales = carnavalAnualRepository.findAllOrderByAno();
+        if(carnavales.size()==0){
+            ra.addFlashAttribute("error", "No hay años de carnavales registrados");
+            return "redirect:/eventos";
+        }
         model.addAttribute("carnavales", carnavales);
         model.addAttribute("carnaval", new CarnavalAnual());
         
@@ -95,6 +99,7 @@ public class MantenimientoEventosController {
     @PostMapping("/elegirAnoEvento")
     public String AnoSeleccionadoEvento(CarnavalAnual carnaval){
         Optional<CarnavalAnual> carnavalElegido = carnavalAnualRepository.findById(carnaval.getAno());
+        
         return "redirect:/CrearEvento/"+carnavalElegido.get().getAno();
 
     }

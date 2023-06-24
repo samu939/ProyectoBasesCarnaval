@@ -64,8 +64,12 @@ public class MantenimientoResultadosCarnavalesController {
     }
 
     @GetMapping("/elegirAnoResultadoVer")
-    public String ElegirAnoResultadoVer(Model model){
-        List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
+    public String ElegirAnoResultadoVer(Model model, RedirectAttributes ra){
+        List<CarnavalAnual> carnavales = carnavalAnualRepository.findAllOrderByAno();
+        if(carnavales.size()==0){
+            ra.addFlashAttribute("errorEscuelas", "No hay ningun carnaval registrado");
+            return "redirect:/resultadosCarnavales";
+        }
         model.addAttribute("carnavales", carnavales);
         model.addAttribute("carnaval", new CarnavalAnual());
         
@@ -130,8 +134,12 @@ public class MantenimientoResultadosCarnavalesController {
 
 
     @GetMapping("/elegirAnoResultadoCrear")
-    public String ElegirAnoResultadoCrear(Model model){
-        List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
+    public String ElegirAnoResultadoCrear(Model model, RedirectAttributes ra){
+        List<CarnavalAnual> carnavales = carnavalAnualRepository.findAllOrderByAno();
+        if(carnavales.size()==0){
+            ra.addFlashAttribute("errorEscuelas", "No hay ningun carnaval registrado");
+            return "redirect:/resultadosCarnavales";
+        }
         model.addAttribute("carnavales", carnavales);
         model.addAttribute("carnaval", new CarnavalAnual());
         
