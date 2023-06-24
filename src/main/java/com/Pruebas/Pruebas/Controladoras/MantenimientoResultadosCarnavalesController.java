@@ -93,8 +93,12 @@ public class MantenimientoResultadosCarnavalesController {
 
 
     @GetMapping("/verDetalleEscuela/{id}/{ano}")
-    public String verEscuelaDetalle(Model model,@PathVariable("id") int id,@PathVariable("ano")LocalDate ano){
-        Optional<HistoricoGrupo> historicoActual= historicoGrupoRepository.findActiveById(id);
+    public String verEscuelaDetalle(Model model,@PathVariable("id") int id,@PathVariable("ano")LocalDate ano, RedirectAttributes ra){
+        Optional<HistoricoGrupo> historicoActual= historicoGrupoRepository.findActiveByIdOnly(id);
+        if(!historicoActual.isPresent()){
+            ra.addFlashAttribute("errorEscuelas", "No se encontró el historico de esta escuela");
+            return "redirect:/resultadosCarnavales";
+        }
         Optional<EscuelaSamba> escuelaDetalle = escuelaSambaRepository.findById(id);
         List<Color> coloresEscuela = coloresRepository.findColoresByEscuelaId(id);
         model.addAttribute("escuelaDetalle", escuelaDetalle.get());
@@ -139,9 +143,9 @@ public class MantenimientoResultadosCarnavalesController {
     @PostMapping("/elegirEscuelaResultadoCrear/{ano}")
     public String EscuelaSeleccionadaResultadoCrear(EscuelaSamba escuelaSamba, @PathVariable("ano") LocalDate ano, RedirectAttributes ra){
         Optional<EscuelaSamba> escuelaElegida = escuelaSambaRepository.findById(escuelaSamba.getId());
-        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(escuelaSamba.getId());
+        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(escuelaSamba.getId(),ano);
         if(!histGrupo.isPresent()){
-            ra.addFlashAttribute("errorHistorico", "La escuela elegida no tiene un historico de grupo activo");
+            ra.addFlashAttribute("errorHistorico", "La escuela elegida no tiene un historico de grupo activo para este año");
             return "redirect:/resultadosCarnavales";
         }
         return "redirect:/elegirCalendarioResultadoCrear/"+ano+"/"+escuelaElegida.get().getId();
@@ -150,7 +154,7 @@ public class MantenimientoResultadosCarnavalesController {
 
     @GetMapping("/elegirCalendarioResultadoCrear/{ano}/{id}")
     public String ElegirCalendarioResultado(Model model, @PathVariable("ano") LocalDate ano, @PathVariable("id") int id, RedirectAttributes ra){
-        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id);
+        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id,ano);
         List<Calendario> eventos = calendarioRepostory.findAllDesfilesByYearAndName(ano, histGrupo.get().getGrupo());
         if(eventos.size()==0){
             ra.addFlashAttribute("errorEscuelas", "No hay ningun desfile creado para este grupo este año");
@@ -176,7 +180,7 @@ public class MantenimientoResultadosCarnavalesController {
         calendarioPK.setId(idCalendario);
         Optional<CarnavalAnual> carnaval = carnavalAnualRepository.findById(ano);
         calendarioPK.setAno_carnaval(carnaval.get());
-        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id);
+        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id,ano);
         Optional<EscuelaSamba> escuela = escuelaSambaRepository.findById(id);
         Optional<Calendario> calendario = calendarioRepostory.findById(calendarioPK);
         model.addAttribute("calendario", calendario.get());
@@ -203,7 +207,7 @@ public class MantenimientoResultadosCarnavalesController {
         calendarioPK.setId(idCalendario);
         Optional<CarnavalAnual> carnaval = carnavalAnualRepository.findById(ano);
         calendarioPK.setAno_carnaval(carnaval.get());
-        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id);
+        Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id,ano);
         Optional<Calendario> calendario = calendarioRepostory.findById(calendarioPK);
         presentacion.setCalendario(calendario.get());
         presentacion.setHistoricoGrupo(histGrupo.get());
