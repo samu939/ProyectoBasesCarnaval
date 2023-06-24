@@ -23,5 +23,4 @@ public class InicioController {
         return "menuReservas";
     }
 
-
 }

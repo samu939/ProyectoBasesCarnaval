@@ -18,15 +18,15 @@ import java.util.Optional;
 public class VentaTicketController {
     @Autowired
     private CarnavalAnualRepository carnavalAnualRepository;
-    @GetMapping(path = {"/SelecAnoTickect"})
+    @GetMapping(path = {"/SeleAnoTickect"})
     public String SeleAnoTickect(Model model) {
         List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
         model.addAttribute("carnavales", carnavales);
         model.addAttribute("carnaval", new CarnavalAnual());
-        return "SelecAnoTickect";
+        return "SeleAnoTickect";
     }
 
-    @PostMapping(path = {"/SelecAnoTickect"})
+    @PostMapping(path = {"/SeleAnoTickect"})
     public String anoSelecListEvent(CarnavalAnual carnaval){
         Optional<CarnavalAnual> carnavalElegido = carnavalAnualRepository.findById(carnaval.getAno());
         return "redirect:/EventosTicket/"+carnavalElegido.get().getAno();
