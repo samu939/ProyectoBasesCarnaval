@@ -12,11 +12,19 @@
     <div class="main">
         <h1 class="text-center">RESERVA</h1>
     </div>
-    <div>
-        <a href="/" style="margin-top: 2ch;" 2ch; class="btn btn-primary;">Agregar reserva</a>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <form class="row g-3" action="" method="post" th:object="${cliente}">
+                <label>Indique su cedula</label>
+                <input class="form-control" th:field="*{docidentidad}">
+                <button class="btn btn-primary">
+                    Ingresar
+                </button>
+            </form>
+        </div>
     </div>
-    <div>
-        <a href="/" style="margin-top: 2ch;" class="btn btn-primary">Volver</a>
+    <div class="text-center">
+        <a href="/" style="margin-top: 2ch;" class="btn btn-light">Volver</a>
     </div>
 </body>
 </html>
