@@ -130,6 +130,8 @@
                     <th scope="col">TIPO</th>
                     <th scope="col">PAGO</th>
                     <th scope="col">AÑO CARNAVAL</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -138,10 +140,8 @@
                 <td th:text="${evento.fecha}"></td>
                 <td th:text="${evento.tipo}"></td>
                 <td th:text="${evento.pago}"></td>
-                <td><form th:action="@{verEvento/{id}(id=${evento.id})}">
-                    <input type="text" name="ano" th:value="${evento.ano_carnaval.ano}"  style="margin-right: 10px; background-color: transparent; border-color: transparent; padding: 0px;">
-                    <button  style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver</button>    
-                </form></td>
+                <td><a th:href="@{verEvento/{id}/{ano}(id=${evento.id},ano=${evento.ano_carnaval.ano})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Ver Evento</a></td>
+                <td><a th:href="@{eliminarEvento/{id}(id=${evento.id})}" style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;" class="btn btn-primary">Eliminar</a></td>
             </tr>
             </tbody>
         </table>
