@@ -11,6 +11,41 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
-<h1>Hello world perrito</h1>
+<div class="container text-center">
+    <label class="form-label text-center fs-1 fw-bold">TICKETS EVENTOS</label>
+    <br>
+    <div class="table">
+        <table class="table table-striped table-hover pad" style="text-align:center;">
+            <thead>
+            <tr>
+                <th scope="col">AÑADIR</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">TIPO</th>
+                <th scope="col">PAGOS</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">AÑO CARNAVAL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="eventosList : ${eventos}">
+                <td>
+                    <a th:href="@{/SeleticketEvento/{id}/{ano}(id=${eventosList.id}, ano=${eventosList.ano_carnaval.ano})}"
+                       style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;"
+                       class="btn btn-primary">seleccionar </a>
+                </td>
+                <td th:text="${eventosList.nombre}"></td>
+                <td th:text="${eventosList.fecha}"></td>
+                <td th:text="${eventosList.tipo}"></td>
+                <td th:text="${eventosList.pago}"></td>
+                <td th:text="${eventosList.costo}"></td>
+                <td th:text="${eventosList.ano_carnaval.ano}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 th:unless="${eventos.size}">No hay eventos</h3>
+    </div>
+</div>
 </body>
 </html>

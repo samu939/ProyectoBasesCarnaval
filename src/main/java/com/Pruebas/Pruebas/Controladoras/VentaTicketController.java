@@ -1,6 +1,8 @@
 package com.Pruebas.Pruebas.Controladoras;
 
+import com.Pruebas.Pruebas.Modelo.Calendario;
 import com.Pruebas.Pruebas.Modelo.CarnavalAnual;
+import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +20,10 @@ import java.util.Optional;
 public class VentaTicketController {
     @Autowired
     private CarnavalAnualRepository carnavalAnualRepository;
+    @Autowired
+    CalendarioRepostory calendarioRepostory;
     @GetMapping(path = {"/SeleAnoTickect"})
-    public String SeleAnoTickect(Model model) {
+    public String seleAnoTickect(Model model) {
         List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
         model.addAttribute("carnavales", carnavales);
         model.addAttribute("carnaval", new CarnavalAnual());
@@ -34,7 +38,13 @@ public class VentaTicketController {
 
     @GetMapping(path = {"/EventosTicket/{ano}"})
     public String eventosList(Model model,@PathVariable("ano") LocalDate ano){
-
+        List<Calendario> eventosList = calendarioRepostory.findAllByAno_Carnaval(ano);
+        model.addAttribute("eventos", eventosList);
         return "EventosTicket";
+    }
+
+    @GetMapping("SeleticketEvento/{id}/{ano}")
+    public String SeleticketEvento(Model model,@PathVariable("ano") LocalDate ano,@PathVariable("id")int id){
+        return "SeleticketEvento";
     }
 }

@@ -17,6 +17,9 @@ public interface CalendarioRepostory extends JpaRepository<Calendario, Calendari
     @Query(value = "SELECT * FROM ssa_calendario order by fecha asc", nativeQuery = true)
     List<Calendario> OrderByFecha();
 
+    @Query(value = "select * from ssa_calendario sc where sc.ano_carnaval=:ano and sc.tipo='general' and sc.pago='Si' order by sc.fecha asc", nativeQuery = true)
+    List<Calendario> findAllByAno_Carnaval(@Param("ano") LocalDate ano);
+
     List<Calendario> findByNombreContainingIgnoreCase(String cadena);
 
     @Query(value = "select * from ssa_calendario sc where sc.ano_carnaval=:ano and sc.tipo='desfile' and upper(sc.nombre) like upper('%'||:grupo||'%')", nativeQuery = true)
