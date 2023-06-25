@@ -10,7 +10,7 @@
     <h2 style="padding: 20px;">Elige El Año del Carnaval</h2>
     <form class="row g-3" action="" method="post" th:object="${carnaval}">
         <select class="form-control" id="dropDownList" th:field="*{ano}">
-            <option th:each="carnaval : ${carnavales}" th:value="${carnaval.ano}" th:text="${carnaval.ano}" ></option>
+            <option th:each="carnaval : ${carnavales}" th:value="${carnaval.ano}" th:text="${#strings.substring(carnaval.ano,0,4)}" ></option>
         </select>
 
         <div>

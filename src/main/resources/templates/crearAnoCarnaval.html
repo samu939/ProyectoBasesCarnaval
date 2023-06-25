@@ -92,8 +92,10 @@
                     var resultado = confirm("Seguro que Quiere Crear el Carnaval de "+ fechaCarnaval);  
                     if(resultado){
                         fechaCarnaval=fechaCarnaval+"-01-01";
+                        anoPre=document.getElementById("ano").value;
                         document.getElementById("ano").value=fechaCarnaval;
                         document.getElementById("crearEvento").submit();
+                        document.getElementById("ano").value=anoPre;
                     }
                 
                 }

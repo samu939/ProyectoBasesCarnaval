@@ -11,7 +11,7 @@
     <form class="row g-3" id="crearEvento" action="" method="post" novalidate>
         <div class="input-group">
             <span class="input-group-text">Año Carnaval</span>
-            <input  class="form-control" id="ano" disabled type="text" th:value="${evento.ano_carnaval.ano}">
+            <input  class="form-control" id="ano" disabled type="text" th:value="${#strings.substring(evento.ano_carnaval.ano,0,4)}">
         </div>
         <div class="input-group">
             <span class="input-group-text">Nombre</span>

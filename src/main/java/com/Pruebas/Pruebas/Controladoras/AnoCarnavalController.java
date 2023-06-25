@@ -54,11 +54,11 @@ public class AnoCarnavalController {
         List<CarnavalAnual> carnavalesAnuales= carnavalAnualRepository.findAll();
         if(carnavalesAnuales.size()!=0){
             Optional<CarnavalAnual> carnavalAnoAnterior = carnavalAnualRepository.findById(carnaval.getAno().minusYears(1));
-            Optional<CarnavalAnual> carnavalAnoSiguiente = carnavalAnualRepository.findById(carnaval.getAno().plusYears(1));
-            if(!carnavalAnoAnterior.isPresent() && !carnavalAnoSiguiente.isPresent()){
-                redirectAttributes.addFlashAttribute("errorCrearAno", "Los años de carnavales tienen que ser consecutivos, no existe carnaval del año anterior o siguiente");
+            if(!carnavalAnoAnterior.isPresent()){
+                redirectAttributes.addFlashAttribute("errorCrearAno", "Los años de carnavales no pueden ser menores al primero creado y tienen que ser consecutivos, no existe carnaval del año anterior");
                 return "redirect:/mantenimientoCarnaval";
             }
+            
             if (carnavalAnual.isPresent()) {
                 redirectAttributes.addFlashAttribute("errorCrearAno", "El año de carnaval ya existe");
                 return "redirect:/mantenimientoCarnaval";

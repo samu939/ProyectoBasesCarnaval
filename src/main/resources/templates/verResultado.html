@@ -86,7 +86,15 @@
     <form class="row g-3"  novalidate>
         <div class="input-group" style="margin-top: 5ch;">
             <span class="input-group-text">Año Carnaval</span>
-            <input  class="form-control" id="ano" disabled type="text" th:value="${carnaval.ano}">
+            <input  class="form-control" id="ano" disabled type="text" th:value="${#strings.substring(carnaval.ano,0,4)}">
+        </div>
+        <div class="input-group" >
+            <span class="input-group-text">Fecha de Inicio Carnaval</span>
+            <input  class="form-control" id="ano" disabled type="text" th:value="${carnaval.fechai}">
+        </div>
+        <div class="input-group" >
+            <span class="input-group-text">Fecha de Fin Carnaval</span>
+            <input  class="form-control" id="ano" disabled type="text" th:value="${carnaval.fechaf}">
         </div>
         <div class="input-group">
             <span class="input-group-text">Rey Carnaval</span>
