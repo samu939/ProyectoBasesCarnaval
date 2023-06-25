@@ -207,6 +207,7 @@ public class MantenimientoResultadosCarnavalesController {
         calendarioPK.setId(idCalendario);
         Optional<CarnavalAnual> carnaval = carnavalAnualRepository.findById(ano);
         calendarioPK.setAno_carnaval(carnaval.get());
+
         Optional<HistoricoGrupo> histGrupo= historicoGrupoRepository.findActiveById(id,ano);
         Optional<EscuelaSamba> escuela = escuelaSambaRepository.findById(id);
         Optional<Calendario> calendario = calendarioRepostory.findById(calendarioPK);
