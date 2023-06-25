@@ -6,6 +6,8 @@ import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.CalendarioPK;
 import com.Pruebas.Pruebas.Modelo.TicketEvento;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import com.Pruebas.Pruebas.Repositorios.TicketEventoRepositoy;
+import com.Pruebas.Pruebas.Repositorios.ticketEventoInsertRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +30,15 @@ public class VentaTicketController {
     CalendarioRepostory calendarioRepostory;
     @Autowired
     TicketEventoRepositoy ticketEventoRepositoy;
+    @Autowired
+    ticketEventoInsertRepository ticketEventoInsertRepository;
     @GetMapping(path = {"/SeleAnoTicket"})
-    public String seleAnoTickect(Model model) {
+    public String seleAnoTickect(Model model,RedirectAttributes ra) {
         List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
+        if(carnavales.size()==0){
+            ra.addFlashAttribute("error", "No hay años registrados en el sistema");
+            return "redirect:/";
+        }
         model.addAttribute("carnavales", carnavales);
         model.addAttribute("carnaval", new CarnavalAnual());
         return "SeleAnoTicket";
@@ -43,8 +51,12 @@ public class VentaTicketController {
     }
 
     @GetMapping(path = {"/EventosTicket/{ano}"})
-    public String eventosList(Model model,@PathVariable("ano") LocalDate ano){
+    public String eventosList(Model model,@PathVariable("ano") LocalDate ano,RedirectAttributes ra){
         List<Calendario> eventosList = calendarioRepostory.findAllByAno_Carnaval(ano);
+        if(eventosList.size()==0){
+            ra.addFlashAttribute("error", "No hay eventos registrados en ese año");
+            return "redirect:/SeleAnoTicket";
+        }
         model.addAttribute("eventos", eventosList);
         return "EventosTicket";
     }
@@ -71,10 +83,11 @@ public class VentaTicketController {
         ticketEvento.setCosto(eventoEspecifico.get().getCosto());
 
         try{
-            ticketEventoRepositoy.save(ticketEvento);
-            System.out.println("se logró papu");
+            ticketEventoInsertRepository.inserTicketEventoNuevoNuevo(ticketEvento);
+            ra.addFlashAttribute("triunfo","Se ha guardado el ticket");
+            
         }catch(Exception e){
-            System.out.println("no logró papu");
+            ra.addFlashAttribute("error","No se pudo guardar el ticket");
             return "redirect:/EventosTicket/" + ano;
         }
         return  "redirect:/EventosTicket/" + ano;
@@ -82,7 +95,7 @@ public class VentaTicketController {
 
     @GetMapping(path = {"/TicketsVendidos"})
     public String Tickets(Model model){
-        List<TicketEvento> ticketEventos = ticketEventoRepositoy.OrderById();
+        List<TicketEvento> ticketEventos = ticketEventoRepositoy.OrderByAno_carnaval();
         model.addAttribute("ticketEventoList", ticketEventos);
         return "TicketsVendidos";
     }

@@ -11,13 +11,21 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
-<div class="container min-vh-100 d-flex justify-content-center align-items-center">
+    <script>
+        setTimeout(function(){
+        $('.alert').fadeOut('slow');
+        },3000);
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <div style="margin: 30px;" class="alert alert-danger my-2" th:text="${error}" th:if="${error ne null}"></div>
+<div class="container min-vh-100 d-flex justify-content-center" style="margin-top: 90px;">
+    
     <div>
         <label class="form-label text-center fs-1 fw-bold">Seleccionar Año Evento</label>
         <form class="row g-3" action="" method="post" th:object="${carnaval}">
             <select class="form-control border border-primary-subtle" id="dropDownList" th:field="*{ano}">
                 <option th:each="carnaval : ${carnavales}" th:value="${carnaval.ano}"
-                        th:text="${carnaval.ano}"></option>
+                        th:text="${#strings.substring(carnaval.ano,0,4)}"></option>
             </select>
 
             <div>

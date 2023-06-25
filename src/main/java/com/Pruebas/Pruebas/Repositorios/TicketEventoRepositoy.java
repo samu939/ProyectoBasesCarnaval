@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TicketEventoRepositoy extends JpaRepository<TicketEvento, TicketEventoPK> {
-    @Query(value = "SELECT * from SSA_ticket_evento st order by st.id", nativeQuery = true)
-    List<TicketEvento> OrderById();
+    @Query(value = "SELECT * from SSA_ticket_evento st order by st.ano_carnaval asc", nativeQuery = true)
+    List<TicketEvento> OrderByAno_carnaval();
 }

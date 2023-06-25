@@ -13,6 +13,14 @@
 </head>
 <body>
 <div class="container text-center">
+    <script>
+        setTimeout(function(){
+        $('.alert').fadeOut('slow');
+        },3000);
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <div class="alert alert-success my-2" th:text="${triunfo}" th:if="${triunfo ne null}"></div>
+    <div class="alert alert-danger my-2" th:text="${error}" th:if="${error ne null}"></div>
     <label class="form-label text-center fs-1 fw-bold">EVENTOS DISPONIBLES</label>
     <br>
     <div style="float: left;margin-top: 5px; padding-top: 0px;">
@@ -45,7 +53,7 @@
                 <td th:text="${eventosList.tipo}"></td>
                 <td th:text="${eventosList.pago}"></td>
                 <td th:text="${eventosList.costo}"></td>
-                <td th:text="${eventosList.ano_carnaval.ano}"></td>
+                <td th:text="${#strings.substring(eventosList.ano_carnaval.ano,0,4)}"></td>
             </tr>
             </tbody>
         </table>
