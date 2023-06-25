@@ -84,6 +84,14 @@
                             alert('La fecha del evento tiene que ser el mismo año del carnaval');
                             conf=1;
                         }
+
+                        var rex=/^([0-9][0-9]):[0-5][0-9]$/;
+                        if (conf==0){
+                            if(!rex.test(horaEmision) || Number(horaEmision.substr(0,2))>24){
+                                alert('la hora tiene que tener el formato HH:MM');
+                                conf=1;
+                            }
+                        }
                     }
                 </script>
 
