@@ -28,15 +28,15 @@ public class VentaTicketController {
     CalendarioRepostory calendarioRepostory;
     @Autowired
     TicketEventoRepositoy ticketEventoRepositoy;
-    @GetMapping(path = {"/SeleAnoTickect"})
+    @GetMapping(path = {"/SeleAnoTicket"})
     public String seleAnoTickect(Model model) {
         List<CarnavalAnual> carnavales = carnavalAnualRepository.findAll();
         model.addAttribute("carnavales", carnavales);
         model.addAttribute("carnaval", new CarnavalAnual());
-        return "SeleAnoTickect";
+        return "SeleAnoTicket";
     }
 
-    @PostMapping(path = {"/SeleAnoTickect"})
+    @PostMapping(path = {"/SeleAnoTicket"})
     public String anoSelecListEvent(CarnavalAnual carnaval){
         Optional<CarnavalAnual> carnavalElegido = carnavalAnualRepository.findById(carnaval.getAno());
         return "redirect:/EventosTicket/"+carnavalElegido.get().getAno();
@@ -78,5 +78,12 @@ public class VentaTicketController {
             return "redirect:/EventosTicket/" + ano;
         }
         return  "redirect:/EventosTicket/" + ano;
+    }
+
+    @GetMapping(path = {"/TicketsVendidos"})
+    public String Tickets(Model model){
+        List<TicketEvento> ticketEventos = ticketEventoRepositoy.OrderById();
+        model.addAttribute("ticketEventoList", ticketEventos);
+        return "TicketsVendidos";
     }
 }
