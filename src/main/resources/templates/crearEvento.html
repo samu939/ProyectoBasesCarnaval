@@ -19,7 +19,15 @@
     <form class="row g-3" id="crearEvento" action="" method="post" th:object="${calendario}" novalidate>
         <div class="input-group">
             <span class="input-group-text">Año Carnaval</span>
-            <input  class="form-control" id="ano" disabled type="text" th:value="${ano}">
+            <input  class="form-control" id="ano" disabled type="text" th:value="${ano.ano}" >
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Fecha Inicio Carnaval</span>
+            <input  class="form-control" id="fechaiC" disabled type="text" th:value="${ano.fechai}">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Fecha Fin Carnaval</span>
+            <input  class="form-control" id="fechafC" disabled type="text" th:value="${ano.fechaf}">
         </div>
         <div class="input-group">
             <span class="input-group-text">Nombre</span>
@@ -77,13 +85,15 @@
 
         </div>
 
-        <div>
+        <div style="margin-bottom: 20px;">
             <script>
               function validarEvento() {
                 var conf=0;
                 var nombre=document.getElementById('nombre').value;
                 var fecha = document.getElementById('fecha').value;
                 var fechaCarnaval = document.getElementById('ano').value;
+                var fechaiC= document.getElementById('fechaiC').value;
+                var fechafC= document.getElementById('fechafC').value;
                 var lugar=document.getElementById("lugar").value;
                 var tipo=document.getElementById("tipo").value;
                 if (nombre==""){
@@ -94,6 +104,15 @@
                 if (fecha.substr(0,4)!=fechaCarnaval.substr(0,4) && conf==0) {
                   alert('La fecha del evento tiene que ser el mismo año del carnaval');
                   conf=1;
+                }
+
+                if(Date.parse(fecha)>Date.parse(fechafC) && conf==0){
+                    alert('La fecha del evento tiene que ser antes del final del carnaval');
+                    conf=1;
+                }
+                if(Date.parse(fecha)<Date.parse(fechaiC) && conf==0){
+                    alert('La fecha del evento tiene que ser despues del inicio del carnaval');
+                    conf=1;
                 }
                 var hora = document.getElementById('horai').value;
 
@@ -130,8 +149,8 @@
 
                 var re=/^[0-9]+([.][0-9]+)?$/;
                 if (costo!="" && conf==0){
-                    if(!re.test(costo)){
-                        alert('El costo tiene que ser un numero, si tiene decimales se usa el .');
+                    if(!re.test(costo) ||   parseFloat(costo)>99999.99 ||   parseFloat(costo)<0){
+                        alert('El costo tiene que ser un numero menor que 99999.99, si tiene decimales se usa el .');
                         conf=1;
                     }
                 }
@@ -141,8 +160,10 @@
                     var resultado = confirm("Seguro que Quiere Crear el evento: "+nombre+"?");  
                     if(resultado){
                         hora=hora+":00";
+                        horaPre=document.getElementById("horai").value;
                         document.getElementById("horai").value=hora;
                         document.getElementById("crearEvento").submit();
+                        document.getElementById("horai").value=horaPre
                     }
                 
                 }

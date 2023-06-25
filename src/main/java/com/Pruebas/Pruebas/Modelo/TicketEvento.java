@@ -46,7 +46,7 @@ public class TicketEvento {
             @JoinColumn(name = "ano_carnaval", referencedColumnName = "ano_carnaval")})
     private Calendario calendario;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 300, nullable = false)
     private String descripcion;
 
     @Column(nullable = false)

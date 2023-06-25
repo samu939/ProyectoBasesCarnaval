@@ -109,7 +109,7 @@ public class MantenimientoEventosController {
 
         model.addAttribute("calendario", new Calendario());
         model.addAttribute("lugares", lugarEventoRepository.findAll());
-        model.addAttribute("ano", ano);
+        model.addAttribute("ano", carnavalAnualRepository.findById(ano).get());
         
         return "crearEvento";
 

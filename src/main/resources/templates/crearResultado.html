@@ -18,10 +18,12 @@
         <div class="alert alert-danger my-2" th:text="${errorPresentacionMismaPos}" th:if="${errorPresentacionMismaPos ne null}"></div>
 
         <form class="row g-3" id="crearEvento" action="" method="post" th:object="${presentacion}" novalidate>
+            
         <div class="input-group">
             <span class="input-group-text">Año Carnaval</span>
             <input  class="form-control" id="ano" disabled type="text" th:value="${calendario.ano_carnaval.ano}">
         </div>
+        
         <div class="input-group">
             <span class="input-group-text">Escuela</span>
             <input  class="form-control" id="escuela" disabled type="text" th:value="${escuela.nombre}">
@@ -95,8 +97,10 @@
                     var resultado = confirm("Seguro que Quiere el resultado?");  
                     if(resultado){
                         hora=hora+":00";
+                        horaPre=document.getElementById("horai").value;
                         document.getElementById("horai").value=hora;
                         document.getElementById("crearEvento").submit();
+                        document.getElementById("horai").value=anoPre;
                     }
                 
                 }
