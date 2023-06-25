@@ -43,4 +43,5 @@ public class Cliente {
     private String email;
     @Column(name = "snombre", length = 20)
     private String snombre;
+    
 }
