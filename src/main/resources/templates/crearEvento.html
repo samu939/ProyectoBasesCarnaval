@@ -129,8 +129,8 @@
 
                 var re=/^[0-9]+([.][0-9]+)?$/;
                 if (costo!="" && conf==0){
-                    if(!re.test(costo)){
-                        alert('El costo tiene que ser un numero, si tiene decimales se usa el .');
+                    if(!re.test(costo) ||   parseFloat(costo)>99999.99 ||   parseFloat(costo)<0){
+                        alert('El costo tiene que ser un numero menor que 99999.99, si tiene decimales se usa el .');
                         conf=1;
                     }
                 }
