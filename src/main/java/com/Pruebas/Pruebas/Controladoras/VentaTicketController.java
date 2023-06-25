@@ -43,8 +43,8 @@ public class VentaTicketController {
         return "EventosTicket";
     }
 
-    @GetMapping("SeleticketEvento/{id}/{ano}")
-    public String SeleticketEvento(Model model,@PathVariable("ano") LocalDate ano,@PathVariable("id")int id){
-        return "SeleticketEvento";
+    @GetMapping("SeleTicketEvento/{id}/{ano}")
+    public String SeleTicketEvento(Model model,@PathVariable("ano") LocalDate ano,@PathVariable("id")int id){
+        return "SeleTicketEvento";
     }
 }
