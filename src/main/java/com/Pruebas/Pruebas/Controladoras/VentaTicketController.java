@@ -2,6 +2,7 @@ package com.Pruebas.Pruebas.Controladoras;
 
 import com.Pruebas.Pruebas.Modelo.Calendario;
 import com.Pruebas.Pruebas.Modelo.CarnavalAnual;
+import com.Pruebas.Pruebas.Modelo.TicketEvento;
 import com.Pruebas.Pruebas.Repositorios.CalendarioRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,10 @@ public class VentaTicketController {
 
     @GetMapping("SeleTicketEvento/{id}/{ano}")
     public String SeleTicketEvento(Model model,@PathVariable("ano") LocalDate ano,@PathVariable("id")int id){
+        List<Calendario> eventoEspecifico = calendarioRepostory.findAllByAno_Carnaval_Id(ano,id);
+        model.addAttribute("eventoEspecifico", eventoEspecifico);
+        model.addAttribute("ticketEvento", new TicketEvento());
+        model.addAttribute("ano", ano);
         return "SeleTicketEvento";
     }
 }

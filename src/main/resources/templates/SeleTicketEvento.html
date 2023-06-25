@@ -3,8 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Venta Ticket</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
+<div class="container min-vh-100 d-flex justify-content-center align-items-center">
+    <div>
+        <label class="form-label text-center fs-1 fw-bold">TICKET EVENTO</label>
+        <form class="row g-3" action="" method="post" th:each="eventoEspecifico : ${eventoEspecifico}"
+              th:object="${ticketEvento}">
+            <div>
+                <div class="input-group">
+                    <span class="input-group-text">Año Carnaval</span>
+                    <input class="form-control" id="ano" disabled type="text"
+                           th:value="${eventoEspecifico.ano_carnaval.ano}">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Nombre</span>
+                    <input class="form-control" id="nombre" disabled type="text" th:value="${eventoEspecifico.nombre}">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Fecha Emisión</span>
+                    <input class="form-control" id="fechaEmision" type="date" th:field="*{fecha_emision}" required>
 
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Hora Emisión (HH:MM)</span>
+                    <input class="form-control" id="horaEmision" type="text" th:field="*{hora_emision}" required
+                           pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Tipo Evento</span>
+                    <input class="form-control" id="tipo" disabled type="text" th:value="${eventoEspecifico.tipo}">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Tipo Audiencia</span>
+                    <input class="form-control" id="tipo_audiencia" disabled type="text"
+                           th:value="${eventoEspecifico.tipo_audiencia}">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Pago</span>
+                    <input class="form-control" id="pago" disabled type="text" th:value="${eventoEspecifico.pago}">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Lugar Evento</span>
+                    <input class="form-control" id="lugar_evento" disabled type="text"
+                           th:value="${eventoEspecifico.id_lugar_evento.nombre}">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Descripción</span>
+                    <textarea class="form-control" id="descripcion" disabled
+                              th:text="${eventoEspecifico.descripcion}"></textarea>
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Precio</span>
+                    <input class="form-control" id="precio" disabled type="text" th:value="${eventoEspecifico.costo}">
+                </div>
+            </div>
+            <div>
+                <script>
+                    function validarTicketEvento(){
+                        console.log("hi sr")
+                        var conf = 0;
+                        var fechaEmision = document.getElementById('fechaEmision').value;
+                        var horaEmision = document.getElementById('horaEmision').value;
+                        var anoCarnaval = document.getElementById('ano').value;
+
+                        console.log(fechaEmision);
+                        console.log(anoCarnaval);
+                        console.log(horaEmision);
+                        if(fechaEmision.substr(0,4)!=anoCarnaval.substr(0,4) && conf==0){
+                            alert('La fecha del evento tiene que ser el mismo año del carnaval');
+                            conf=1;
+                        }
+                    }
+                </script>
+
+                <a style="padding: 10PX;" th:href="@{/EventosTicket/{ano}(ano=${eventoEspecifico.ano_carnaval.ano})}"
+                   class="btn btn-primary">
+                    Volver
+                </a>
+                <button style="padding: 10px;" class="btn btn-primary" type="button" onclick="validarTicketEvento()">
+                    Guardar Ticket
+                </button>
+                <br>
+                <br>
+                <br>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
