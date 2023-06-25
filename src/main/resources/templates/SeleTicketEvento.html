@@ -90,19 +90,19 @@
                         var diaParseIntFEvento = parseInt(fechaEvento.substr(8,2));
 
 
-                        if(anoEmision == anoEvento){
+                        if(anoEmision == anoEvento && conf==0){
                             if(mesParseIntFEmision == mesParseIntFEvento){
-                                if(diaParseIntFEmision >= diaParseIntFEvento){
+                                if(diaParseIntFEmision > diaParseIntFEvento){
                                     alert('La fecha de emisión debe ser antes del evento');
                                     conf = 1;
                                 }
-                            }else if(mesParseIntFEmision > mesParseIntFEvento){
+                            }else if(mesParseIntFEmision > mesParseIntFEvento ){
                                 alert('La fecha de emisión debe ser antes del evento');
                                 conf = 1;
                             }else{
                                 conf = 0;
                             }
-                        }else if(anoEmision > anoEvento){
+                        }else if(anoEmision > anoEvento && conf==0){
                            alert('La fecha de emisión debe ser antes del evento');
                            conf = 1;
                         }else{
