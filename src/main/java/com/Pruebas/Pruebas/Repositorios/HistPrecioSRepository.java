@@ -18,5 +18,8 @@ public interface HistPrecioSRepository extends JpaRepository<HistoricoPrecioS,Hi
 
     @Query(value = "select * from ssa_hist_precio_sambodromo sh where sh.id_tipo_entrada=:id and sh.fechaf is null ", nativeQuery = true)
     Optional<HistoricoPrecioS> findAllByIdFechaActivo(@Param("id") int id);
+
+    @Query(value = "select * from ssa_hist_precio_sambodromo sh where sh.fechaf is null order by (select te.sector from ssa_tipo_entrada te where te.id=sh.id_tipo_entrada) asc", nativeQuery = true)
+    List<HistoricoPrecioS> findAllActivo();
     
 }

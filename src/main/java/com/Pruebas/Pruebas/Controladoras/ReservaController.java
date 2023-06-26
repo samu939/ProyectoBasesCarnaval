@@ -81,7 +81,7 @@ public class ReservaController {
     }
 
     @PostMapping("/crearReserva/{dociden}/{id_empresa}/{id_entrada}/{ano}")
-    public String ReservaCreada(Reservacion reserva,@PathVariable("dociden") Long dociden,@PathVariable("id_empresa") int id_empresa, @PathVariable("id_entrada") int id_entrada,@PathVariable("ano") LocalDate ano){
+    public String ReservaCreada(Reservacion reserva,@PathVariable("dociden") Long dociden,@PathVariable("id_empresa") int id_empresa, @PathVariable("id_entrada") int id_entrada,@PathVariable("ano") LocalDate ano, RedirectAttributes ra){
         Optional<Cliente>cliente=clienteRepository.findByDocidentidad(dociden);
         Optional<Empresa>empresa=empresaRepository.findById(id_empresa);
         Optional<Autorizado>autorizacion=autorizadoRepository.findByEntradaEmpresa(id_entrada, id_empresa, ano);
@@ -90,17 +90,15 @@ public class ReservaController {
         reserva.setId_empresa(empresa.get());
         DetalleReservacion detalleReservacion = new DetalleReservacion();
         detalleReservacion.setAutorizado(autorizacion.get());
-        reserva.setNumero(reservacionRepository.findLastByNumber().get().getNumero());
+        reserva.setNumero(reservacionRepository.findLastByNumber().get().getNumero() + 1);
         detalleReservacion.setReservacion(reserva);
         double division = reserva.getTotal()/historico.get().getPrecio();
         double parteDecimal = division%1;
         double parteEntera = division-parteDecimal;
         detalleReservacion.setCantidad((int)parteEntera);
-        detalleReservacionRepositry.inserDetalleNuevo(detalleReservacion);
         reservacionRepository.save(reserva);
-        
-        
-        
+        detalleReservacionRepositry.inserDetalleNuevo(detalleReservacion);
+        ra.addFlashAttribute("triunfo", "Reserva creada con exito");
         
         return "redirect:/menuReservas";
     }
@@ -116,8 +114,8 @@ public class ReservaController {
 
     @GetMapping(path = {"/HistoricoPrecioS"})
     public String HistoricoPrecioS(Model model){
-        List<TipoEntrada> entradaSambodromo = tipoEntradaRepository.OrderById();
-        model.addAttribute("entradaSambodromo", entradaSambodromo);
+        List<HistoricoPrecioS> historicos = histPrecioSRepository.findAllActivo();
+        model.addAttribute("entradaSambodromo", historicos);
         return "HistoricoPrecioS";
     }
 

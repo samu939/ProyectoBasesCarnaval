@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
@@ -13,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -40,4 +42,7 @@ public class TipoEntrada {
     private String tipo_desfile;
     @Column(name = "ubicacion", length = 3, columnDefinition = "varchar(3) constraint check_ubicacion check(ubicacion in ('A','B','C','A/B','C/D'))")
     private String ubicacion;
+
+    @OneToMany(mappedBy = "id_tipo_entrada")
+    private List<HistoricoPrecioS> historicoPrecio;
 }

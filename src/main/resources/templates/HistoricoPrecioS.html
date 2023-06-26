@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <div class="alert alert-success my-2" th:text="${triunfo}" th:if="${triunfo ne null}"></div>
     <div class="alert alert-danger my-2" th:text="${error}" th:if="${error ne null}"></div>
-    <label class="form-label text-center fs-1 fw-bold">ENTRADAS SAMBÓDROMO</label>
+    <label class="form-label text-center fs-1 fw-bold" style="margin-top: 20px;">ENTRADAS SAMBÓDROMO</label>
     <br>
     <div style="float: left;margin-top: 5px; padding-top: 0px;">
         <a style="margin: 20px; margin-top: 0px; margin-left: 15px; padding: 10PX; margin-right: 10px; background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;"
@@ -38,20 +38,24 @@
                 <th scope="col">CALIDAD</th>
                 <th scope="col">TIPO DESFILE</th>
                 <th scope="col">UBICACIÓN</th>
+                <th scope="col">PRECIO ACTUAL</th>
+                <th scope="col">FECHA DEL ULTIMO CAMBIO DE PRECIO</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="entradas : ${entradaSambodromo}">
                 <td>
-                    <a th:href="@{/ModificarHistorico/{id}(id=${entradas.id})}"
+                    <a th:href="@{/ModificarHistorico/{id}(id=${entradas.id_tipo_entrada.id})}"
                        style="background-color: #00FFFD; border-color: #00FFFD; color: #000;font-weight: bolder;"
                        class="btn btn-primary">modificar precio</a>
                 </td>
-                <td th:text="${entradas.tipo}"></td>
-                <td th:text="${entradas.sector}"></td>
-                <td th:text="${entradas.calidad}"></td>
-                <td th:text="${entradas.tipo_desfile}"></td>
-                <td th:text="${entradas.ubicacion}"></td>
+                <td th:text="${entradas.id_tipo_entrada.tipo}"></td>
+                <td th:text="${entradas.id_tipo_entrada.sector}"></td>
+                <td th:text="${entradas.id_tipo_entrada.calidad}"></td>
+                <td th:text="${entradas.id_tipo_entrada.tipo_desfile}"></td>
+                <td th:text="${entradas.id_tipo_entrada.ubicacion}"></td>
+                <td th:text="${entradas.precio}"></td>
+                <td th:text="${entradas.fechai}"></td>
             </tr>
             </tbody>
         </table>

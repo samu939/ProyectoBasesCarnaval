@@ -2,6 +2,7 @@ package com.Pruebas.Pruebas.Repositorios;
 
 import java.util.List;
 
+import org.hibernate.mapping.OneToMany;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,5 @@ public interface TipoEntradaRepository extends JpaRepository<TipoEntrada, Intege
 
     @Query(value = "select * from ssa_tipo_entrada st where st.id =: id", nativeQuery = true)
     List<TipoEntrada> findAllById(@Param("id") int id);
+
 }
