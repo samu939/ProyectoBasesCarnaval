@@ -4,22 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.Pruebas.Pruebas.Modelo.*;
+import com.Pruebas.Pruebas.Repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.Pruebas.Pruebas.Modelo.Cliente;
-import com.Pruebas.Pruebas.Modelo.Empresa;
-import com.Pruebas.Pruebas.Modelo.Reservacion;
-import com.Pruebas.Pruebas.Repositorios.AutorizadoRepository;
-import com.Pruebas.Pruebas.Repositorios.ClienteRepository;
-import com.Pruebas.Pruebas.Repositorios.EmpresaRepository;
-import com.Pruebas.Pruebas.Repositorios.HistPrecioSRepository;
-import com.Pruebas.Pruebas.Repositorios.ReservacionRepository;
-import com.Pruebas.Pruebas.Repositorios.TipoEntradaRepository;
 
 import org.springframework.ui.Model;
 
@@ -38,6 +30,10 @@ public class ReservaController {
     private TipoEntradaRepository tipoEntradaRepository;
     @Autowired
     private HistPrecioSRepository histPrecioSRepository;
+
+    @Autowired
+    private HistPrecioSInsertRepository histPrecioSInsertRepository;
+
 
     @GetMapping("/menuReservas")
     public String reserva(Model model){
@@ -84,7 +80,52 @@ public class ReservaController {
 
 
 
+    /*---------------------Arturo Parte------------------------*/
 
+    @GetMapping(path = {"/MenuOpciones"})
+    public String MenuOpciones(){
+        return "MenuOpciones";
+    }
+
+    @GetMapping(path = {"/HistoricoPrecioS"})
+    public String HistoricoPrecioS(Model model){
+        List<TipoEntrada> entradaSambodromo = tipoEntradaRepository.OrderById();
+        model.addAttribute("entradaSambodromo", entradaSambodromo);
+        return "HistoricoPrecioS";
+    }
+
+    @GetMapping(path = {"/ModificarHistorico/{id}"})
+    public String ModificarHistorico(Model model,@PathVariable("id")int id){
+        model.addAttribute("historicoPrecioS", new HistoricoPrecioS());
+        model.addAttribute("idEntrada", id);
+        return "ModificarHistorico";
+    }
+
+    @PostMapping("/ModificarHistorico/{id}")
+    public String HistoricoPrecioCreado(HistoricoPrecioS historicoPrecioS, RedirectAttributes ra, @PathVariable("id")int id){
+        TipoEntrada entradaObject = new TipoEntrada();
+        entradaObject.setId(id);
+        Optional<HistoricoPrecioS> historicoPrecioSList = histPrecioSRepository.findAllByIdFechaActivo(id);
+
+        if(historicoPrecioSList.isEmpty()){
+            historicoPrecioS.setFechaf(null);
+            historicoPrecioS.setId_tipo_entrada(entradaObject);
+        }else{
+            historicoPrecioSList.get().setFechaf(historicoPrecioS.getFechai());
+            historicoPrecioS.setFechaf(null);
+            historicoPrecioS.setId_tipo_entrada(entradaObject);
+        }
+
+        try{
+            histPrecioSInsertRepository.insertHistoricoNuevo(historicoPrecioS);
+        }catch(Exception e){
+            return "redirect:/HistoricoPrecioS";
+        }
+
+
+
+        return "redirect:/HistoricoPrecioS";
+    }
 
   
     

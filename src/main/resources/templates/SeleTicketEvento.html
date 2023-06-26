@@ -119,16 +119,16 @@
                         }
 
                         if(conf==0){
-                        var resultado = confirm("Seguro que Quiere Guardar El Ticket Evento: "+nombreEvento+"?");
-                        if(resultado){
-                            horaEmision=horaEmision+":00";
-                            horaPre=document.getElementById("horaEmision").value;
-                            document.getElementById("horaEmision").value=horaEmision;
-                            document.getElementById("SeleTicketEvento").submit();
-                            document.getElementById("horaEmision").value=horaPre;
-                        }
+                            var resultado = confirm("Seguro que Quiere Guardar El Ticket Evento: "+nombreEvento+"?");
+                            if(resultado){
+                                horaEmision=horaEmision+":00";
+                                horaPre=document.getElementById("horaEmision").value;
+                                document.getElementById("horaEmision").value=horaEmision;
+                                document.getElementById("SeleTicketEvento").submit();
+                                document.getElementById("horaEmision").value=horaPre;
+                            }
 
-                }
+                        }
                     }
 
                 </script>
