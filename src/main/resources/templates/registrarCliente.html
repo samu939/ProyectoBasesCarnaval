@@ -81,6 +81,11 @@
                                 conf=1;
                             }
 
+                            if(parseInt(cedula)>2000000000 && conf==0){
+                                alert("La cedula no puede ser un valor mayor a 2.000.000.000");
+                                conf=1;
+                            }
+
                             if((Date.parse(fecha_naci)< Date.parse("1900-01-01") || Date.parse(fecha_naci)> Date.now()) && conf==0){
                                 alert("Ingrese una fecha de nacimiento valida");
                                 conf=1;

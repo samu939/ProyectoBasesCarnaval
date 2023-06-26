@@ -40,6 +40,14 @@
                     <input id="ano" disabled type="text" th:value="${autorizacion.ano_carnaval.ano}" class="form-control">
                 </div>
                 <div class="input-group">
+                    <span class="input input-group">Fecha inicio Carnaval</span>
+                    <input id="fechaic" disabled type="text" th:value="${autorizacion.ano_carnaval.fechai}" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input input-group">Fecha fin Carnaval</span>
+                    <input id="fechafc" disabled type="text" th:value="${autorizacion.ano_carnaval.fechaf}" class="form-control">
+                </div>
+                <div class="input-group">
                     <span class="input input-group">Monto por reserva</span>
                     <input id="precioSam" disabled type="text" th:value="${historico.precio}" class="form-control">
                 </div>
@@ -99,25 +107,34 @@
                             var montoTotal;
                             var fecha=document.getElementById("fecha_hora_emision").value;
                             var fechaCarnaval = document.getElementById("ano").value;
-
+                            var fechaic= document.getElementById("fechaic").value;
+                            var fechafc= document.getElementById("fechafc").value;
                             if(cantidad==""){
                                 alert('La cantidad no puede estar vacia')
                                 conf=1;
                             }
-
+                            if(Date.parse(fecha.substr(0,10))>Date.parse(fechafc) && conf==0){
+                                alert('La fecha de emisionno puede ser despues del fin del carnaval')
+                                conf=1;
+                            }
                             if(fechac!="" && conf==0){
                                 if(Date.parse(fechac)<Date.parse(fecha.substr(0,10))){
                                     alert('La fecha de cancelacion no puede ser antes de la fecha de emisión')
                                     conf=1;
                                 }
-                                if(fechac.substr(0,4)!=fechaCarnaval.substr(0,4)){
+                                if(fechac.substr(0,4)!=fechaCarnaval.substr(0,4) && conf==0){
                                     alert('La fecha de cancelación debe ser el mismo año del carnaval')
+                                    conf=1;
+                                }
+                                if(Date.parse(fechac)>Date.parse(fechafc) && conf==0){
+                                    alert('La fecha de cancelación debe ser antes del fin del carnaval')
                                     conf=1;
                                 }
                             }
 
+
                             if(fecha.substr(0,4)!=fechaCarnaval.substr(0,4) && conf==0){
-                                alert('La fecha debe ser el mismo año del carnaval')
+                                alert('La fecha de emision debe ser el mismo año del carnaval')
                                 conf=1;
                             }
 

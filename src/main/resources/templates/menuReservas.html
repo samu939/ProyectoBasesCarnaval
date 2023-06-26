@@ -35,7 +35,7 @@
             <div class="alert alert-danger my-2" th:text="${error}" th:if="${error ne null}"></div>
             <form class="row g-3" action="" id="crearEvento" method="post" th:object="${cliente}">
                 <label>Indique su cedula</label>
-                <input class="form-control" id="cedula" type="number" th:field="*{docidentidad}">
+                <input class="form-control" id="cedula" type="number" th:field="*{docidentidad}" >
                 <script>
                     document.getElementById("cedula").value="";
                 </script>
@@ -45,8 +45,13 @@
                         var cedula=document.getElementById("cedula").value;
                         
                         
-                        if(cedula=="" || cedula=="0"){
-                            alert("La cedula no puede estar vacia ni ser 0");
+                        if(cedula=="" || parseInt(cedula)<=0){
+                            alert("La cedula no puede estar vacia ni ser menor o igual 0");
+                            conf=1;
+                        }
+
+                        if(parseInt(cedula)>2000000000){
+                            alert("La cedula no puede ser un valor mayor a 2.000.000.000");
                             conf=1;
                         }
                         
