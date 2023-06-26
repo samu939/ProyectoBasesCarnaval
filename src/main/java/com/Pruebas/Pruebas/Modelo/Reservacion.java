@@ -1,9 +1,12 @@
 package com.Pruebas.Pruebas.Modelo;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Date;
 
 import com.Pruebas.Pruebas.Modelo.PrimaryKeysCompuestas.ReservacionPK;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,7 +45,7 @@ public class Reservacion {
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente id_cliente;
     @Column(nullable = false)
-    private Date fecha_hora_emision;
+    private Timestamp fecha_hora_emision;
     @Column(name = "total")
     private double total;
     @Column(name = "fechac")

@@ -24,9 +24,10 @@ public class ClienteController {
     }
 
     @PostMapping("/nuevoCliente")
-    public String crear(Cliente cliente){
+    public String crear(Cliente cliente,RedirectAttributes ra){
         clienteRepository.save(cliente);
-        return "redirect:/";
+        ra.addFlashAttribute("triunfo", "Cliente creado correctamente");
+        return "redirect:/menuReservas";
     }
 
     

@@ -33,7 +33,8 @@ public class ReservaController {
 
     @Autowired
     private HistPrecioSInsertRepository histPrecioSInsertRepository;
-
+    @Autowired
+    private detalleReservacionInsertRepository detalleReservacionRepositry;
 
     @GetMapping("/menuReservas")
     public String reserva(Model model){
@@ -46,7 +47,7 @@ public class ReservaController {
         if(clienteRepository.findByDocidentidad(cliente.getDocidentidad()).isPresent()){
             return "redirect:/busquedaEmpresas/"+cliente.getDocidentidad();
         }else{
-            return "registrarCliente";
+            return "redirect:/nuevoCliente";
         }
     }
 
@@ -71,11 +72,37 @@ public class ReservaController {
     @GetMapping("/crearReserva/{dociden}/{id_empresa}/{id_entrada}/{ano}")
     public String crearReserva(Model model,@PathVariable("dociden") Long dociden,@PathVariable("id_empresa") int id_empresa, @PathVariable("id_entrada") int id_entrada,@PathVariable("ano") LocalDate ano){
         model.addAttribute("reserva", new Reservacion());
-        model.addAttribute("precioS", histPrecioSRepository.findByEntradaV(id_entrada));
-        model.addAttribute("empresa", empresaRepository.findById(id_empresa));
-        model.addAttribute("entrada", tipoEntradaRepository.findById(id_entrada));
+        model.addAttribute("historico", histPrecioSRepository.findByEntradaV(id_entrada).get());
+        model.addAttribute("empresa", empresaRepository.findById(id_empresa).get());
+        model.addAttribute("entrada", tipoEntradaRepository.findById(id_entrada).get());
+        model.addAttribute("cliente", clienteRepository.findByDocidentidad(dociden).get());
         model.addAttribute("autorizacion", autorizadoRepository.findByEntradaEmpresa(id_entrada, id_empresa, ano).get());
         return "crearReserva";
+    }
+
+    @PostMapping("/crearReserva/{dociden}/{id_empresa}/{id_entrada}/{ano}")
+    public String ReservaCreada(Reservacion reserva,@PathVariable("dociden") Long dociden,@PathVariable("id_empresa") int id_empresa, @PathVariable("id_entrada") int id_entrada,@PathVariable("ano") LocalDate ano){
+        Optional<Cliente>cliente=clienteRepository.findByDocidentidad(dociden);
+        Optional<Empresa>empresa=empresaRepository.findById(id_empresa);
+        Optional<Autorizado>autorizacion=autorizadoRepository.findByEntradaEmpresa(id_entrada, id_empresa, ano);
+        Optional<HistoricoPrecioS>historico=histPrecioSRepository.findByEntradaV(id_entrada);
+        reserva.setId_cliente(cliente.get());
+        reserva.setId_empresa(empresa.get());
+        DetalleReservacion detalleReservacion = new DetalleReservacion();
+        detalleReservacion.setAutorizado(autorizacion.get());
+        reserva.setNumero(reservacionRepository.findLastByNumber().get().getNumero());
+        detalleReservacion.setReservacion(reserva);
+        double division = reserva.getTotal()/historico.get().getPrecio();
+        double parteDecimal = division%1;
+        double parteEntera = division-parteDecimal;
+        detalleReservacion.setCantidad((int)parteEntera);
+        detalleReservacionRepositry.inserDetalleNuevo(detalleReservacion);
+        reservacionRepository.save(reserva);
+        
+        
+        
+        
+        return "redirect:/menuReservas";
     }
 
 
@@ -106,7 +133,10 @@ public class ReservaController {
         TipoEntrada entradaObject = new TipoEntrada();
         entradaObject.setId(id);
         Optional<HistoricoPrecioS> historicoPrecioSList = histPrecioSRepository.findAllByIdFechaActivo(id);
-
+        if(historicoPrecioS.getFechai().isBefore(historicoPrecioSList.get().getFechai()) ){
+            ra.addFlashAttribute("error", "La fecha de inicio del nuevo registro tiene que ser mayor al del anterior: "+historicoPrecioSList.get().getFechai());
+            return "redirect:/HistoricoPrecioS";
+        }
         if(historicoPrecioSList.isEmpty()){
             historicoPrecioS.setFechaf(null);
             historicoPrecioS.setId_tipo_entrada(entradaObject);
@@ -123,7 +153,7 @@ public class ReservaController {
         }
 
 
-
+        ra.addFlashAttribute("triunfo", "Nuevo historico de precio creado con éxito");
         return "redirect:/HistoricoPrecioS";
     }
 

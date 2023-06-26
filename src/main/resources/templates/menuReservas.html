@@ -9,6 +9,14 @@
     rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
+    <script>
+        setTimeout(function(){
+        $('.alert').fadeOut('slow');
+        },3000);
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <div class="alert alert-success my-2" th:text="${triunfo}" th:if="${triunfo ne null}"></div>
+    <div class="alert alert-danger my-2" th:text="${error}" th:if="${error ne null}"></div>
     <div class="main">
         <h1 class="text-center">RESERVA</h1>
     </div>

@@ -32,5 +32,12 @@ public class DetalleReservacion {
     private Reservacion reservacion;
     @Column(nullable = false)
     private int cantidad;
+    public DetalleReservacion() {
+    }
+    public DetalleReservacion(Autorizado autorizado, Reservacion reservacion, int cantidad) {
+        this.autorizado = autorizado;
+        this.reservacion = reservacion;
+        this.cantidad = cantidad;
+    }
 
 }

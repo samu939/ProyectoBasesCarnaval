@@ -12,18 +12,82 @@
     <div class="row justify-content-center">
         <h3>Crear Reserva</h3>
         <div class="col-md-6 col-lg-4">
-            <form action="" method="post" th:object="${reserva}">
+            
+            <form class="row g-3" action="" id="crearReserva" method="post" th:object="${reserva}">
+                <div class="input-group">
+                    <span class="input input-group">Cedula cliente</span>
+                    <input id="cedu_cliente" disabled type="text" th:value="${cliente.docidentidad}" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input input-group">Ref. empresa</span>
+                    <input id="id_empresa" disabled type="text" th:value="${empresa.id}" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input input-group">Ref. entrada</span>
+                    <input id="id_entrada" disabled type="text" th:value="${entrada.id}" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input input-group">Monto por reserva</span>
+                    <input id="precioSam" disabled type="text" th:value="${historico.precio}" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input input-group">Cantidad disponibles</span>
+                    <input id="cantidadDisp" disabled type="text" th:value="${autorizacion.existencia}" class="form-control">
+                </div>
                 <div class="mb=2">
                     <label for="fecha_hora_emision">Fecha emision</label>
-                    <input id="fecha_hora_emision" type="date" th:field="*{fecha_hora_emision}" class="form-control">
+                    <input id="fecha_hora_emision" type="datetime-local" th:field="*{fecha_hora_emision}" class="form-control" required>
                 </div>
+                <div class="mb=2">
+                    <label>Cantidad a solicitar</label>
+                    <input id="indicado" type="text" class="form-control" >
+                </div> 
                 <div class="mb=2">
                     <label for="total">Total a pagar</label>
                     <input id="total" type="text" th:field="*{total}" class="form-control">
-                </div>   
-                
+                </div>  
                 <div>
-                    
+                    <script>
+                        function validarCantidad(){
+                            var conf=0;
+                            var cantidad=parseFloat(document.getElementById('indicado').value);
+                            var precioS=parseFloat(document.getElementById('precioSam').value);
+                            var cantidadDisp=parseInt(document.getElementById('cantidadDisp').value);
+                            var montoTotal;
+
+                            if(conf==0){
+                                if(cantidad<=0){
+                                    alert('No puede indicar una cantidad negativa')
+                                    conf=1;
+                                }else if(cantidad>cantidadDisp){
+                                    alert('No puede indicar una cantidad mayor a las disponibles')
+                                    conf=1;
+                                }else{
+                                    montoTotal=precioS*cantidad;
+                                }
+                            }
+                            if(conf==0){
+                                var resultado=confirm("Seguro que desea realizar su reservacion")
+                                if(resultado){
+                                    document.getElementById("total").value =montoTotal.toString();
+                                    console.log(document.getElementById('total').value);
+                                    fechaHora=document.getElementById("fecha_hora_emision").value;
+                                    fechaHora=fechaHora.replace("T"," ");
+                                    fechaHora=fechaHora+":00";
+                                    document.getElementById("fecha_hora_emision").type="text";
+                                    document.getElementById("fecha_hora_emision").value=fechaHora;
+                                    document.getElementById("crearReserva").submit();
+                                }
+                                
+                            }
+                        }
+                    </script>
+                    <button class="btn btn-primary" type="button" onclick="validarCantidad()">
+                        Crear reserva
+                    </button>
+                    <a href="/menuReservas" class="btn btn-primary">
+                        Volver
+                    </a>
                 </div>
             </form>
         </div>
