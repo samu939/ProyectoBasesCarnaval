@@ -65,6 +65,7 @@ public class ReservaController {
         model.addAttribute("entradasEmpresa", tipoEntradaRepository.findAllEntradasDispo(id));
         model.addAttribute("entradasExistencia", autorizadoRepository.findAllEntradasDispoA(id));
         model.addAttribute("clienteBuscado", clienteRepository.findByDocidentidad(docidentidad).get());
+        model.addAttribute("dociden", docidentidad);
         return "cantidadxEmpresa";
     }
 
