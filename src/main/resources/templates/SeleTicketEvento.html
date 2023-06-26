@@ -89,8 +89,11 @@
                         var mesParseIntFEvento = parseInt(fechaEvento.substr(5,2));
                         var diaParseIntFEvento = parseInt(fechaEvento.substr(8,2));
 
-
-                        if(anoEmision == anoEvento && conf==0){
+                        if(fechaEmision==""){
+                            alert('La fecha no puede estar vacia');
+                            conf = 1;
+                        }
+                        else if(anoEmision == anoEvento && conf==0){
                             if(mesParseIntFEmision == mesParseIntFEvento){
                                 if(diaParseIntFEmision > diaParseIntFEvento){
                                     alert('La fecha de emisión debe ser antes del evento');
