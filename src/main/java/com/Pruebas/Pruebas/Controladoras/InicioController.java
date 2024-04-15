@@ -9,7 +9,7 @@ public class InicioController {
 
     @GetMapping("/")
     public String inicio(){
-        return "inicio";
+        return "Inicio";
     }
 
     @GetMapping("/mantenimientoCarnaval")
